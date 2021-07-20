@@ -48,11 +48,13 @@
         <item>गिर</item>
     </string-array>
     <string-array name="Byaat">
-        <item>गाय</item>
-        <item>भेंस</item>
-        <item>बकरी</item>
-        <item>बैल</item>
-        <item>ऊंट</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
     </string-array>
     <string-array name="Milk_quantity">
         <item>1-3 lit</item>
@@ -72,4 +74,5 @@
         <item>11-13 lit</item>
         <item>13-16 lit</item>
     </string-array>
+    <string name="title_activity_landing_page">MainActivity</string>
 </resources>
