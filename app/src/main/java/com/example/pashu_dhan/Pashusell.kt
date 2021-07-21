@@ -202,6 +202,8 @@ class Pashusell : AppCompatActivity() {
         val upload_data = findViewById<Button>(R.id.upload_all_data)
         upload_data.setOnClickListener {
             uploadData()
+            val intent = Intent(this, Pashubazar::class.java)
+            startActivity(intent)
         }
 
     }
@@ -229,6 +231,7 @@ class Pashusell : AppCompatActivity() {
         price = findViewById<EditText>(R.id.price).text.toString()
         age = findViewById<EditText>(R.id.age).text.toString()
         val user = hashMapOf(
+            "user_id" to user_uid,
             "animal" to animal,
             "breed" to breed,
             "age" to age,
@@ -242,8 +245,8 @@ class Pashusell : AppCompatActivity() {
             "img4" to uploaded_images[3]
         )
         db.collection("animal-details")
-            .document(user_uid)
-            .set(user)
+            //.document(user_uid)
+            .add(user)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot added with ID: $user_uid") }
             .addOnFailureListener { e ->

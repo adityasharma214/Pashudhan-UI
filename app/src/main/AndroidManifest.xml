@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PashuDhan" >
         <activity android:name=".Pashubazar" >
+
         </activity>
         <activity android:name=".Pashusell" >
         </activity>
