@@ -5,7 +5,7 @@
     <string name="resend_otp">Resend OTP</string>
     <string name="verify">Verify</string>
     <string name="ex_258369">ex: 258369</string>
-    <string name="resed_opt"><b>Resed OPT</b></string>
+    <string name="resed_opt"><b>Resend OPT</b></string>
     <string name="info"><b>जानकारी</b></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -75,4 +75,7 @@
         <item>13-16 lit</item>
     </string-array>
     <string name="title_activity_landing_page">MainActivity</string>
+    <string name="title_activity_pashusell_home">MainActivity</string>
+    <string name="title_activity_home_screen_pashusell">MainActivity</string>
+    <string name="title_activity_main2">MainActivity</string>
 </resources>
