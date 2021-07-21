@@ -37,9 +37,8 @@ class Registration_page : AppCompatActivity() {
         submit_btn = findViewById(R.id.button2)
         submit_btn.setOnClickListener {
             upload_data()
-//            val intent = Intent(this, MainActivity2::class.java)
-//            startActivity(intent)
-//            finish()
+            val intent = Intent(this, Pashubazar::class.java)
+            startActivity(intent)
 
         }
     }
@@ -59,9 +58,9 @@ class Registration_page : AppCompatActivity() {
             .set(user)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot added with ID: $user_uid")
-//                val intent = Intent(this, MainActivity2::class.java)
-//                startActivity(intent)
-//                finish()
+                val intent = Intent(this, Pashubazar::class.java)
+                startActivity(intent)
+
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)

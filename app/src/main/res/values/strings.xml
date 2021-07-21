@@ -78,4 +78,5 @@
     <string name="title_activity_pashusell_home">MainActivity</string>
     <string name="title_activity_home_screen_pashusell">MainActivity</string>
     <string name="title_activity_main2">MainActivity</string>
+    <string name="title_activity_home_pashusell">MainActivity</string>
 </resources>
