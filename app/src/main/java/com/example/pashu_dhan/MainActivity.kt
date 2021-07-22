@@ -1,8 +1,12 @@
 package com.example.pashu_dhan
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.Selection
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -43,6 +47,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // [START initialize_auth]
         // Initialize Firebase Auth
+
+        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val defaultValue = "0"
+        val mMobileUuid = sharedPref.getString("mobile_uuid", defaultValue)
+        Log.d("MainActivity==>", mMobileUuid.toString());
+        if(mMobileUuid != "0") {
+            val intent = Intent(this, Pashubazar::class.java)
+            intent.putExtra("uid", mMobileUuid);
+            startActivity(intent)
+        }
+
         auth = Firebase.auth
         // [END initialize_auth]
 
@@ -147,9 +162,15 @@ class MainActivity : AppCompatActivity() {
 
                     Log.d(TAG, "Current User ID: ${currentuser?.uid}")
 
+                    val sharedPref = this@MainActivity?.getPreferences(Context.MODE_PRIVATE)
+                    with (sharedPref.edit()) {
+                        putString("mobile_uuid", phone_number.text.toString())
+                        apply()
+                    }
+
                     Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, Registration_page::class.java)
-                    intent.putExtra("uid", currentuser?.uid)
+                    intent.putExtra("uid", phone_number.text.toString())
                     startActivity(intent)
                     finish()
                 } else {
@@ -172,6 +193,23 @@ class MainActivity : AppCompatActivity() {
         updateUI(currentUser)
         phone_number = findViewById(R.id.editTextPhone2)
         send_button = findViewById(R.id.button)
+
+//        phone_number.setText("+91");
+//
+//        phone_number.addTextChangedListener(object: TextWatcher {
+//            override fun afterTextChanged(s: Editable?) {
+//                if(!s.toString().startsWith("+91")){
+//                    phone_number.setText("+91");
+//                    Selection.setSelection(phone_number.text, phone_number.text.length);
+//                }
+//            }
+//
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            }
+//        })
 
         send_button.setOnClickListener {
             Log.d("PhoneNumber: ", phone_number.text.toString())

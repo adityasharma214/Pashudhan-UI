@@ -32,7 +32,7 @@ class Pashubazar : AppCompatActivity() {
         recyclerview.setHasFixedSize(true)
         animalarraylist = arrayListOf()
 
-        myAdapter = MyAdapter(animalarraylist)
+        myAdapter = MyAdapter(animalarraylist, this@Pashubazar)
         recyclerview.adapter = myAdapter
 
 

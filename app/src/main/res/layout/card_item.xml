@@ -33,15 +33,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/download" />
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/next" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView10"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginTop="60dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/next" />-->
 
         <TextView
             android:id="@+id/textView16"

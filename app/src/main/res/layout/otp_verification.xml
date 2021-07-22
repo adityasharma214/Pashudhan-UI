@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="ओटीपी नंबर"
+        android:text="ओटीपी"
         android:textColor="@color/black"
         android:textSize="50dp" />
 
@@ -132,7 +132,7 @@
             android:layout_marginRight="19dp"
             android:contextClickable="true"
             android:clickable="true"
-            android:text="@string/resed_opt"
+            android:text="@string/resend_otp"
             android:textColorLink="#0048FF" />
 
         <Button

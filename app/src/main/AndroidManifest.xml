@@ -13,19 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PashuDhan" >
-        <activity android:name=".Pashubazar" >
+        <activity android:name="com.example.pashu_dhan.Pashubazar" >
 
         </activity>
-        <activity android:name=".Pashusell" >
+        <activity android:name="com.example.pashu_dhan.Pashusell" >
         </activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name="com.example.pashu_dhan.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registration_page" />
+        <activity android:name="com.example.pashu_dhan.Registration_page" />
     </application>
 
 </manifest>

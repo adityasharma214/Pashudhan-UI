@@ -36,39 +36,40 @@
         android:layout_height="50dp"
         android:layout_marginBottom="204dp"
         android:background="@color/logobg"
+        android:layout_marginTop="50dp"
         android:text="आगे बड़े "
         app:backgroundTint="#A4AB82"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/truecallerbutton"
-        android:layout_width="246dp"
-        android:layout_height="43dp"
-        android:background="@color/logobg"
-        android:text="Truecaller "
-        app:backgroundTint="#1180FF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.236"
-        android:visibility="gone"/>
+<!--    <Button-->
+<!--        android:id="@+id/truecallerbutton"-->
+<!--        android:layout_width="246dp"-->
+<!--        android:layout_height="43dp"-->
+<!--        android:background="@color/logobg"-->
+<!--        android:text="Truecaller "-->
+<!--        app:backgroundTint="#1180FF"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.496"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/button"-->
+<!--        app:layout_constraintVertical_bias="0.236"-->
+<!--        android:visibility="gone"/>-->
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
-        android:text="ट्रूकॉलर के साथ करें"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/truecallerbutton"
-        android:visibility="gone"/>
+<!--    <TextView-->
+<!--        android:id="@+id/textView4"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="84dp"-->
+<!--        android:text="ट्रूकॉलर के साथ करें"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/truecallerbutton"-->
+<!--        android:visibility="gone"/>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -78,6 +79,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/background"
         android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
