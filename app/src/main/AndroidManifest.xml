@@ -17,7 +17,7 @@
 
         </activity>
         <activity android:name="com.embed.pashudhan.Pashusell"></activity>
-        <activity android:name="com.embed.pashudhan.MainActivity">
+        <activity android:name="com.embed.pashudhan.MainLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -13,8 +13,8 @@ class Pashubazar : AppCompatActivity() {
 
     private lateinit var submit_btn : Button
 
-    private lateinit var recyclerview : RecyclerView
-    private lateinit var animalarraylist : ArrayList<animals>
+    private lateinit var recyclerview: RecyclerView
+    private lateinit var animalarraylist: ArrayList<Animals>
     private lateinit var myAdapter: MyAdapter
     private lateinit var db : FirebaseFirestore
 
@@ -62,7 +62,7 @@ class Pashubazar : AppCompatActivity() {
 
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                        animalarraylist.add(dc.document.toObject(animals::class.java))
+                        animalarraylist.add(dc.document.toObject(Animals::class.java))
                     }
                 }
                 myAdapter.notifyDataSetChanged()

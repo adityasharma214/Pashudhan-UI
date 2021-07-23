@@ -222,7 +222,7 @@ class Pashusell : AppCompatActivity() {
         for (elements in imagelist) {
             // Get the data from an ImageView as bytes
             var file = elements
-            var imagesRef: StorageReference? = storageRef.child("animals/${file.lastPathSegment}")
+            var imagesRef: StorageReference? = storageRef.child("Animals/${file.lastPathSegment}")
             var uploadTask = imagesRef?.putFile(file)
             uploaded_images.add(imagesRef.toString())
             Log.d("iamgeRef", imagesRef.toString())

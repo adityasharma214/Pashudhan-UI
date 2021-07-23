@@ -11,17 +11,19 @@ import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
-class MyAdapter(private val animallist: ArrayList<animals>, private val mContext: Context) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(private val animallist: ArrayList<Animals>, private val mContext: Context) :
+    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
 
-        val itemview = LayoutInflater.from(parent.context).inflate(R.layout.card_item, parent, false)
+        val itemview =
+            LayoutInflater.from(parent.context).inflate(R.layout.card_item, parent, false)
         return MyViewHolder(itemview)
 
     }
 
     override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
 
-      val animal : animals = animallist[position]
+        val animal: Animals = animallist[position]
         val storage = Firebase.storage
 //        var storageRef = storage.reference
 

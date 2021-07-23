@@ -1,5 +1,10 @@
 <resources>
+    <!--  App Level Strings  -->
     <string name="app_name">पशुधन</string>
+    <!--  SharedPreferences Variables  -->
+    <string name="loginUserUUID">user_uuid</string>
+    <string name="userInfo">userInfo</string>
+    <!--  Activity Level Strings  -->
     <string name="referral_message">यदि आपके पास रेफेरल कोड हे तोह </string>
     <string name="referral_link"><u><b>यहाँ क्लिक करें </b></u></string>
     <string name="enter_otp">Enter OTP</string>
