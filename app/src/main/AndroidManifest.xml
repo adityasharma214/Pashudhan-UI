@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pashu_dhan" >
+    package="com.embed.pashudhan">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,19 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PashuDhan" >
-        <activity android:name="com.example.pashu_dhan.Pashubazar" >
+        <activity android:name="com.embed.pashudhan.Pashubazar">
 
         </activity>
-        <activity android:name="com.example.pashu_dhan.Pashusell" >
-        </activity>
-        <activity android:name="com.example.pashu_dhan.MainActivity" >
+        <activity android:name="com.embed.pashudhan.Pashusell"></activity>
+        <activity android:name="com.embed.pashudhan.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.pashu_dhan.Registration_page" />
+        <activity android:name="com.embed.pashudhan.Registration_page" />
     </application>
 
 </manifest>

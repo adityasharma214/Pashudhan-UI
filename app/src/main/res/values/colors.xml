@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="logobg">#A4AB82</color>
-    <color name="next">#35140e</color>
+    <color name="primary">#869061</color>
+    <color name="secondary">#35140E</color>
+    <color name="accent">#C8C8C8</color>
+    <color name="accent2">#F5E6C3</color>
 </resources>

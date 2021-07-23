@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Pashu-Dhan</string>
-    <string name="Referal">यदि आपके पास रेफेरल कोड हे तोह <u><b>यहाँ क्लिक करें </b></u></string>
+    <string name="app_name">पशुधन</string>
+    <string name="referral_message">यदि आपके पास रेफेरल कोड हे तोह </string>
+    <string name="referral_link"><u><b>यहाँ क्लिक करें </b></u></string>
     <string name="enter_otp">Enter OTP</string>
-    <string name="resend_otp">Resend OTP</string>
+    <string name="resend_otp"><b><u>ओटीपी दोबारा भेजें</u></b></string>
     <string name="verify">Verify</string>
     <string name="ex_258369">ex: 258369</string>
     <string name="resed_opt"><b>Resend OPT</b></string>

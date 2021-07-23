@@ -1,4 +1,4 @@
-package com.example.pashu_dhan
+package com.embed.pashudhan
 
 import android.Manifest
 import android.content.Context
@@ -53,7 +53,7 @@ class Pashusell : AppCompatActivity() {
 //        Log.d("usr_id", usr_id.toString())
 //        user_uid = usr_id.toString()
 
-        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         val usr_id = sharedPref.getString("mobile_uuid", "0")
         user_uid = usr_id.toString()
         if (usr_id == "0"){
@@ -217,7 +217,7 @@ class Pashusell : AppCompatActivity() {
         // Create a storage reference from our app
         val storage = Firebase.storage
         var storageRef = storage.reference
-        var mImageUriList : ArrayList<String>;
+        var mImageUriList: ArrayList<String>
         // Create a child reference
         for (elements in imagelist) {
             // Get the data from an ImageView as bytes
@@ -227,7 +227,7 @@ class Pashusell : AppCompatActivity() {
             uploaded_images.add(imagesRef.toString())
             Log.d("iamgeRef", imagesRef.toString())
             // Register observers to listen for when the download is done or if it fails
-            imagesRef?.getDownloadUrl()?.addOnSuccessListener(OnSuccessListener<Uri?> {
+            imagesRef?.downloadUrl?.addOnSuccessListener(OnSuccessListener<Uri?> {
                 //do something with downloadurl
                 uploaded_images.add(it.toString())
             })

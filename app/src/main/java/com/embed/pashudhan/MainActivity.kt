@@ -1,17 +1,18 @@
-package com.example.pashu_dhan
+package com.embed.pashudhan
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.IntentSender
+import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.Selection
-import android.text.TextWatcher
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.gms.auth.api.credentials.*
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     // [END declare_auth]
+    private lateinit var root: LinearLayout
     private lateinit var phone_number: EditText
     private lateinit var send_button: Button
     private lateinit var verify_otp_btn: Button
@@ -48,13 +50,13 @@ class MainActivity : AppCompatActivity() {
         // [START initialize_auth]
         // Initialize Firebase Auth
 
-        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         val defaultValue = "0"
         val mMobileUuid = sharedPref.getString("mobile_uuid", defaultValue)
-        Log.d("MainActivity==>", mMobileUuid.toString());
+        Log.d("MainActivity==>", mMobileUuid.toString())
         if(mMobileUuid != "0") {
             val intent = Intent(this, Pashubazar::class.java)
-            intent.putExtra("uid", mMobileUuid);
+            intent.putExtra("uid", mMobileUuid)
             startActivity(intent)
         }
 
@@ -111,6 +113,33 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun phoneSelection() {
+        // To retrieve the Phone Number hints, first, configure
+        // the hint selector dialog by creating a HintRequest object.
+        val hintRequest = HintRequest.Builder()
+            .setPhoneNumberIdentifierSupported(true)
+            .build()
+
+        val options = CredentialsOptions.Builder()
+            .forceEnableSaveDialog()
+            .build()
+
+        // Then, pass the HintRequest object to
+        // credentialsClient.getHintPickerIntent()
+        // to get an intent to prompt the user to
+        // choose a phone number.
+        val credentialsClient = Credentials.getClient(applicationContext, options)
+        val intent = credentialsClient.getHintPickerIntent(hintRequest)
+        try {
+            startIntentSenderForResult(
+                intent.intentSender,
+                CREDENTIAL_PICKER_REQUEST, null, 0, 0, 0, Bundle()
+            )
+        } catch (e: IntentSender.SendIntentException) {
+            e.printStackTrace()
+        }
+    }
+
     private fun startPhoneNumberVerification(phoneNumber: String) {
         // [START start_phone_auth]
         val options = PhoneAuthOptions.newBuilder(auth)
@@ -162,7 +191,7 @@ class MainActivity : AppCompatActivity() {
 
                     Log.d(TAG, "Current User ID: ${currentuser?.uid}")
 
-                    val sharedPref = this@MainActivity?.getPreferences(Context.MODE_PRIVATE)
+                    val sharedPref = this@MainActivity.getPreferences(Context.MODE_PRIVATE)
                     with (sharedPref.edit()) {
                         putString("mobile_uuid", phone_number.text.toString())
                         apply()
@@ -186,6 +215,7 @@ class MainActivity : AppCompatActivity() {
     // [END sign_in_with_phone]
 
     // [START on_start_check_user]
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -193,29 +223,27 @@ class MainActivity : AppCompatActivity() {
         updateUI(currentUser)
         phone_number = findViewById(R.id.editTextPhone2)
         send_button = findViewById(R.id.button)
+        root = findViewById(R.id.main_activity_root_layout)
 
-//        phone_number.setText("+91");
-//
-//        phone_number.addTextChangedListener(object: TextWatcher {
-//            override fun afterTextChanged(s: Editable?) {
-//                if(!s.toString().startsWith("+91")){
-//                    phone_number.setText("+91");
-//                    Selection.setSelection(phone_number.text, phone_number.text.length);
-//                }
-//            }
-//
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//            }
-//        })
+        phone_number.setOnClickListener {
+            if (phone_number.text.toString() == "") phoneSelection()
+        }
 
         send_button.setOnClickListener {
-            Log.d("PhoneNumber: ", phone_number.text.toString())
-            storedPhonenumber = phone_number.text.toString()
-            startPhoneNumberVerification(phoneNumber = phone_number.text.toString())
+            if (phone_number.text.toString() == "") {
+                var mSnackbar =
+                    Snackbar.make(this, root, "कृप्या फ़ोन नंबर डाले", Snackbar.LENGTH_SHORT)
+                mSnackbar.setAction("नंबर डाले", View.OnClickListener {
+                    phoneSelection()
+                })
+                mSnackbar.setActionTextColor(ContextCompat.getColor(this, R.color.accent2))
+                mSnackbar.show()
+            } else {
+                Log.d("PhoneNumber: ", phone_number.text.toString())
+                storedPhonenumber = phone_number.text.toString()
+                startPhoneNumberVerification(phoneNumber = phone_number.text.toString())
 
+            }
         }
     }
 
@@ -224,14 +252,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun callverifyotpUI(user: FirebaseUser? = auth.currentUser) {
-        setContentView(R.layout.otp_verification)
+        setContentView(R.layout.fill_otp_layout)
 
-        otp1 = findViewById(R.id.otp_edit_box1)
-        otp2 = findViewById(R.id.otp_edit_box2)
-        otp3 = findViewById(R.id.otp_edit_box3)
-        otp4 = findViewById(R.id.otp_edit_box4)
-        otp5 = findViewById(R.id.otp_edit_box5)
-        otp6 = findViewById(R.id.otp_edit_box6)
+        otp1 = findViewById(R.id.otpVal1)
+        otp2 = findViewById(R.id.otpVal2)
+        otp3 = findViewById(R.id.otpVal3)
+        otp4 = findViewById(R.id.otpVal4)
+        otp5 = findViewById(R.id.otpVal5)
+        otp6 = findViewById(R.id.otpVal6)
 
 
 
@@ -240,8 +268,9 @@ class MainActivity : AppCompatActivity() {
         verify_otp_btn = findViewById(R.id.verify_otp_btn)
         resend_otp_btn = findViewById(R.id.resend_btn)
         verify_otp_btn.setOnClickListener {
-            otp_number = otp1.text.toString() + otp2.text.toString() + otp3.text.toString() + otp4.text.toString() + otp5.text.toString() + otp6.text.toString()
-            Log.d("otp", otp_number )
+            otp_number =
+                otp1.text.toString() + otp2.text.toString() + otp3.text.toString() + otp4.text.toString() + otp5.text.toString() + otp6.text.toString()
+            Log.d("otp", otp_number)
             verifyPhoneNumberWithCode(verificationId = storedVerificationId, code = otp_number)
 
         }
@@ -251,8 +280,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CREDENTIAL_PICKER_REQUEST && resultCode == RESULT_OK) {
+
+            // get data from the dialog which is of type Credential
+            val credential: Credential? = data?.getParcelableExtra(Credential.EXTRA_KEY)
+
+            // set the received data t the text view
+            credential?.apply {
+                phone_number.setText(credential.id)
+            }
+        } else if (requestCode == CREDENTIAL_PICKER_REQUEST && resultCode == CredentialsApi.ACTIVITY_RESULT_NO_HINTS_AVAILABLE) {
+            Toast.makeText(this, "No phone numbers found", Toast.LENGTH_LONG).show()
+        }
+    }
+
     companion object {
         private const val TAG = "PhoneAuthActivity"
+        var CREDENTIAL_PICKER_REQUEST = 1
     }
 
 

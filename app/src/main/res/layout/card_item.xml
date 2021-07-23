@@ -50,7 +50,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
             android:text="@string/card_text"
-            android:textColor="@color/logobg"
+            android:textColor="@color/primary"
             android:textSize="25dp"
             app:layout_constraintBottom_toTopOf="@+id/imageView9"
             app:layout_constraintStart_toStartOf="parent"
