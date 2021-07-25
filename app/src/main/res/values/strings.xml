@@ -42,14 +42,17 @@
     <string name="userRegistrationActivity_lastNamePlaceholder">उपनाम</string>
     <string name="userRegistrationActivity_pinCodeLabel">पिन कोड</string>
     <string name="userRegistrationActivity_pinCodePlaceholder">पिन कोड</string>
+    <string name="userRegistrationActivity_addressLabel">पता</string>
+    <string name="userRegistrationActivity_addressPlaceholder">पता</string>
     <string name="userRegistrationActivity_villageLabel">गाँव</string>
     <string name="userRegistrationActivity_villagePlaceholder">गाँव</string>
     <string name="userRegistrationActivity_districtLabel">जिला</string>
     <string name="userRegistrationActivity_districtPlaceholder">जिला</string>
     <string name="userRegistrationActivity_stateLabel">राज्य</string>
     <string name="userRegistrationActivity_statePlaceholder">राज्य</string>
-    <string name="userRegistrationActivity_dataUploadSuccessMessage">पंजीकरण पूरा होगया</string>
-    <string name="userRegistrationActivity_findLocationDescription">अपना स्थान खोजिये</string>
+    <string name="userRegistrationActivity_registrationSuccessMessage">पंजीकरण पूरा होगया</string>
+    <string name="userRegistrationActivity_noLocationFoundMessage">आपका पता प्राप्त नहीं कर पाए | कृप्या अपना पता भरे |</string>
+    <string name="userRegistrationActivity_incompleteFormErrorMessage">कृप्या पूरी जानकारी भरे</string>
 
     <!--  PashuSalesActivity  -->
     <string name="pashuSalesActivity_heading">पशु बेचे</string>

@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +48,7 @@ class MainLoginActivity : AppCompatActivity() {
     private lateinit var mPhoneNumberVal: String
     private var mOtherAccount = 0
     private lateinit var mOTPBuilder: StringBuilder
+    private lateinit var mProgressBar: ProgressBar
 
     // Get Access to Helper Functions
     private var helper: Helper = Helper()
@@ -76,7 +79,7 @@ class MainLoginActivity : AppCompatActivity() {
             rootLayout = findViewById(R.id.main_activity_root_layout)
             mPhoneNumberEditText = findViewById(R.id.phoneNumberEditText)
             mSubmitBtn = findViewById(R.id.mainLoginActivity_submitButton)
-
+            mProgressBar = findViewById(R.id.mainLoginActivity_progressBar)
             mFirebaseAuth = Firebase.auth
 
             val currentUser = mFirebaseAuth.currentUser
@@ -100,7 +103,8 @@ class MainLoginActivity : AppCompatActivity() {
                         this::phoneSelection,
                         R.color.accent2
                     )
-                } else if (mPhoneNumberVal.substring(0, 2) != "+91") {
+                } else if (mPhoneNumberVal.substring(0, 3) != "+91") {
+                    Log.d(TAG, mPhoneNumberVal.substring(0, 2))
                     helper.showSnackbar(
                         this,
                         rootLayout,
@@ -109,9 +113,8 @@ class MainLoginActivity : AppCompatActivity() {
                     )
                 } else {
                     mPhoneNumberVal = mPhoneNumberEditText.text.toString()
-                    // TODO Add loader for showing the progress
+                    mProgressBar.visibility = View.VISIBLE
                     startPhoneNumberVerification(phoneNumber = mPhoneNumberVal)
-
                 }
             }
 
@@ -324,6 +327,10 @@ class MainLoginActivity : AppCompatActivity() {
             // Set the phone number
             credential?.apply {
                 mPhoneNumberEditText.setText(credential.id)
+                mPhoneNumberVal = credential.id
+                mProgressBar.visibility = View.VISIBLE
+                startPhoneNumberVerification(phoneNumber = credential.id)
+
             }
         } else if (requestCode == CREDENTIAL_PICKER_REQUEST && resultCode == CredentialsApi.ACTIVITY_RESULT_NO_HINTS_AVAILABLE) {
             helper.showSnackbar(
@@ -441,6 +448,7 @@ class MainLoginActivity : AppCompatActivity() {
     }
 
     private fun callVerifyOTPUI(user: FirebaseUser? = mFirebaseAuth.currentUser) {
+        mProgressBar.visibility = View.GONE
         setContentView(R.layout.otp_verification_activity_layout)
         otpLayoutView = findViewById(R.id.otp_verification_root_layout)
         setOTPFillingUX()
