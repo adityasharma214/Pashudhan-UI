@@ -15,6 +15,9 @@
     <!--  Common  -->
     <string name="tryAgainMessage">कृपया दुबारा कोशिश करें</string>
     <string name="nextActivityCTA">आगे बढिये</string>
+    <string name="incompleteFormErrorMessage">कृप्या पूरी जानकारी भरे</string>
+    <string name="progressDescription">कृप्या प्रतीक्षा करें</string>
+
     <!--  MainLoginActivity  -->
     <string name="mainLoginActivity_subHeading">किसानों का असली धन</string>
     <string name="mainLoginActivity_phoneNumberLabel">फ़ोन नंबर</string>
@@ -52,17 +55,21 @@
     <string name="userRegistrationActivity_statePlaceholder">राज्य</string>
     <string name="userRegistrationActivity_registrationSuccessMessage">पंजीकरण पूरा होगया</string>
     <string name="userRegistrationActivity_noLocationFoundMessage">आपका पता प्राप्त नहीं कर पाए | कृप्या अपना पता भरे |</string>
-    <string name="userRegistrationActivity_incompleteFormErrorMessage">कृप्या पूरी जानकारी भरे</string>
+
 
     <!--  PashuSalesActivity  -->
     <string name="pashuSalesActivity_heading">पशु बेचे</string>
     <string name="pashuSalesActivity_animalTypeLabel">कौन सा पशु</string>
     <string name="pashuSalesActivity_animalBreedLabel">नस्ल</string>
     <string name="pashuSalesActivity_animalAgeLabel">उम्र</string>
+    <string name="pashuSalesActivity_animalAgePlaceholder">उम्र भरें</string>
     <string name="pashuSalesActivity_animalByaatLabel">ब्यात</string>
     <string name="pashuSalesActivity_animalMilkQuantityLabel">अभी का दूध (प्रति दिन)</string>
+    <string name="pashuSalesActivity_animalMilkQuantityPlaceholder">जैसे: 10 लीटर</string>
     <string name="pashuSalesActivity_animalMilkCapacityLabel">दूध की क्षमता (प्रति दिन)</string>
+    <string name="pashuSalesActivity_animalMilkCapacityPlaceholder">जैसे: 10 लीटर</string>
     <string name="pashuSalesActivity_animalPriceLabel">मूल्य</string>
+    <string name="pashuSalesActivity_animalPricePlaceholder">जैसे: 30,000</string>
     <string name="pashuSalesActivity_animalAddImageLabel">फोटो डाले</string>
     <string name="pashuSalesActivity_animalAddImageDescription">एक अच्छी तस्वीर अपलोड करना महत्वपूर्ण है</string>
     <string name="pashuSalesActivity_animalSelectImageLabel">फोटो चुनें</string>
@@ -70,6 +77,9 @@
     <string name="pashuSalesActivity_fileUploadError">फाइल अपलोड नहीं हो पायी</string>
     <string name="pashuSalesActivity_addImageContentDescription">इमेज एडेड</string>
     <string name="pashuSalesActivity_dataUploadSuccess">आपके पशु की जानकारी दर्ज हो गयी है</string>
+    <string name="pashuSalesActivity_defaultSpinnerOption">पता नहीं</string>
+    <string name="pashuSalesActivity_allImagesNotUploadedErrorMessage">कृप्या चारो तस्वीर अपलोड करे</string>
+
     <string-array name="pashuSalesActivity_animalTypes">
         <item>गाय</item>
         <item>भेंस</item>
@@ -78,19 +88,26 @@
         <item>अन्य पशु</item>
     </string-array>
     <string-array name="pashuSalesActivity_animalBreeds">
+        <item></item>
         <item>जार्सी</item>
         <item>देशी</item>
         <item>गिर</item>
     </string-array>
     <string-array name="pashuSalesActivity_animalByaat">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
+        <item>ब्यायी नहीं</item>
+        <item>पहला (1)</item>
+        <item>दूसरा (2)</item>
+        <item>तीसरा (3)</item>
+        <item>चौथा (4)</item>
+        <item>पांचवा (5)</item>
+        <item>छठा (6)</item>
+        <item>सातवाँ (7)</item>
     </string-array>
+
+    <!--  BottomNavActivity  -->
+    <string name="fragment_pashuBazaar">पशु बाज़ार</string>
+    <string name="fragment_pashuKahani">पशु कहानी</string>
+    <string name="fragment_pashuSamwardhan">पशु संवर्धन</string>
 
     <!--  PashuBazaar  -->
     <string name="pashuBazaar_cardDummyTitle"><b>देसी गाय</b></string>

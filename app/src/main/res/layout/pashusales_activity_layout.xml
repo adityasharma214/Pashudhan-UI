@@ -14,9 +14,49 @@
         android:textColor="@color/primary"
         android:textSize="@dimen/title" />
 
-    <ScrollView
+    <ProgressBar
+        android:id="@+id/uploadProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:progress="0"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/loadDataProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:progress="0" />
+
+        <TextView
+            android:id="@+id/progressDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/progressDescription"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/caption" />
+    </LinearLayout>
+
+
+    <ScrollView
+        android:id="@+id/pashuSales_scrollView_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,6 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:spinnerMode="dialog"
                         android:background="@drawable/spinner_bg"
                         android:padding="15dp" />
 
@@ -98,6 +139,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:spinnerMode="dialog"
                         android:background="@drawable/spinner_bg"
                         android:padding="15dp" />
 
@@ -141,7 +183,8 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_text_bg"
                         android:inputType="number"
-                        android:padding="4dp" />
+                        android:hint="@string/pashuSalesActivity_animalAgePlaceholder"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
@@ -182,6 +225,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/spinner_bg"
+                        android:spinnerMode="dialog"
                         android:padding="15dp" />
 
                 </LinearLayout>
@@ -223,7 +267,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_text_bg"
-                        android:padding="4dp" />
+                        android:hint="@string/pashuSalesActivity_animalMilkQuantityPlaceholder"
+                        android:inputType="number"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
@@ -264,7 +310,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_text_bg"
-                        android:padding="4dp" />
+                        android:hint="@string/pashuSalesActivity_animalMilkCapacityPlaceholder"
+                        android:inputType="number"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
@@ -305,7 +353,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_text_bg"
-                        android:padding="4dp" />
+                        android:hint="@string/pashuSalesActivity_animalPricePlaceholder"
+                        android:inputType="number"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
@@ -442,18 +492,19 @@
                 </LinearLayout>
 
             </GridLayout>
-
             <Button
                 android:id="@+id/pashuSales_submitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/registration_btn_bg"
                 android:paddingHorizontal="20dp"
                 android:text="@string/pashuSalesActivity_uploadCTA"
                 android:textColor="@color/white"
                 android:textSize="@dimen/button" />
+
 
         </LinearLayout>
 

@@ -16,7 +16,7 @@ import java.net.URI
 class Firebase : AppCompatActivity() {
 
     private val mFirebaseDB = Firebase.firestore
-    private val mFirebaseStorage = Firebase.storage
+    val mFirebaseStorage = Firebase.storage
 
     fun getCollection(collectionName: String): Task<QuerySnapshot> {
         return mFirebaseDB.collection(collectionName)

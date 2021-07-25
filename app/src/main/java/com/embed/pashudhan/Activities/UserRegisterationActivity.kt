@@ -140,7 +140,7 @@ class UserRegisterationActivity : AppCompatActivity() {
             helper.showSnackbar(
                 this,
                 userRegistrationRootLayout,
-                getString(R.string.userRegistrationActivity_incompleteFormErrorMessage),
+                getString(R.string.incompleteFormErrorMessage),
                 helper.ERROR_STATE
             )
         }

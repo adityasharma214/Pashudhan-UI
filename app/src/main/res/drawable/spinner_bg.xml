@@ -11,51 +11,13 @@
     </item>
     <item
         android:gravity="center_vertical|right"
-        android:right="8dp">
+        android:right="10dp">
         <layer-list>
             <item
-                android:width="10dp"
-                android:height="10dp"
-                android:bottom="9dp"
-                android:gravity="center">
-                <rotate
-                    android:fromDegrees="45"
-                    android:toDegrees="45">
-                    <shape android:shape="rectangle">
-                        <solid android:color="@color/secondary" />
-                        <stroke
-                            android:width="2dp"
-                            android:color="@color/secondary" />
-                        <corners android:bottomRightRadius="1dp" />
-                    </shape>
-                </rotate>
-            </item>
-            <item
-                android:width="7dp"
-                android:height="7dp"
-                android:bottom="9dp"
-                android:gravity="center">
-                <rotate
-                    android:fromDegrees="45"
-                    android:toDegrees="45">
-                    <shape android:shape="rectangle">
-                        <solid android:color="#FFFFFF" />
-                        <stroke
-                            android:width="2dp"
-                            android:color="#FFFFFF" />
-                        <corners android:bottomRightRadius="1dp" />
-                    </shape>
-                </rotate>
-            </item>
-            <item
-                android:width="20dp"
-                android:height="8dp"
-                android:bottom="17dp"
-                android:gravity="center">
-                <shape android:shape="rectangle">
-                    <solid android:color="@color/white" />
-                </shape>
-            </item>
+                android:height="6dp"
+                android:drawable="@drawable/arrow"
+                android:width="10dp" />
+
         </layer-list>
     </item>
 </layer-list>

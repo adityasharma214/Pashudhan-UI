@@ -1,11 +1,11 @@
 package com.embed.pashudhan.Activities
 
-import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -61,7 +61,7 @@ class MainLoginActivity : AppCompatActivity() {
         helper.changeAppLanguage(this, getString(R.string.HI_Locale))
 
         // Get Shared Preferences to check if user is already logged in.
-        val checkLoginSharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
 
         // If user is already logged in => redirect to Pashubaazar::class.java
@@ -398,7 +398,7 @@ class MainLoginActivity : AppCompatActivity() {
                     findViewById<EditText>(R.id.otpVal6).setText(mOTPDigits?.get(6))
 
                     val setLoginSharedPref =
-                        this@MainLoginActivity.getPreferences(Context.MODE_PRIVATE)
+                        PreferenceManager.getDefaultSharedPreferences(this@MainLoginActivity)
                     with(setLoginSharedPref.edit()) {
                         putString(getString(R.string.sp_loginUserUUID), mPhoneNumberVal)
                         putString(getString(R.string.sp_userInfo), user.toString())
