@@ -5,8 +5,9 @@
     <dimen name="title">48sp</dimen>
     <dimen name="heading">32sp</dimen>
     <dimen name="subheading">28sp</dimen>
+    <dimen name="body2">24sp</dimen>
     <dimen name="body">20sp</dimen>
     <dimen name="caption">14sp</dimen>
-    <dimen name="button">18sp</dimen>
+    <dimen name="button">25sp</dimen>
     <dimen name="margin_unit">10dp</dimen>
 </resources>

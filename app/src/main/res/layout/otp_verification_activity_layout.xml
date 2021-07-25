@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fillOTPLayout"
+    android:id="@+id/otp_verification_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -19,7 +19,7 @@
             android:id="@+id/otpHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ओटीपी"
+            android:text="@string/otpVerificationActivity_title"
             android:textColor="@color/black"
             android:textSize="@dimen/title" />
 
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="अपने फ़ोन पैर भेजे गए ओटीपी को दर्ज करें"
+            android:text="@string/otpVerificationActivity_instruction"
             android:textSize="@dimen/caption" />
     </LinearLayout>
 
@@ -58,7 +58,7 @@
                 android:layout_gravity="center"
                 android:elevation="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/edittext_curve_bg"
+                android:background="@drawable/otp_edit_text_bg"
                 android:inputType="number"
                 android:maxLength="1"
                 android:ems="1"
@@ -75,7 +75,7 @@
                 android:layout_gravity="center"
                 android:elevation="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/edittext_curve_bg"
+                android:background="@drawable/otp_edit_text_bg"
                 android:inputType="number"
                 android:maxLength="1"
                 android:ems="1"
@@ -92,7 +92,7 @@
                 android:layout_gravity="center"
                 android:elevation="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/edittext_curve_bg"
+                android:background="@drawable/otp_edit_text_bg"
                 android:inputType="number"
                 android:maxLength="1"
                 android:ems="1"
@@ -109,7 +109,7 @@
                 android:layout_gravity="center"
                 android:elevation="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/edittext_curve_bg"
+                android:background="@drawable/otp_edit_text_bg"
                 android:inputType="number"
                 android:maxLength="1"
                 android:ems="1"
@@ -126,7 +126,7 @@
                 android:layout_gravity="center"
                 android:elevation="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/edittext_curve_bg"
+                android:background="@drawable/otp_edit_text_bg"
                 android:inputType="number"
                 android:maxLength="1"
                 android:ems="1"
@@ -143,7 +143,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:elevation="5dp"
-                android:background="@drawable/edittext_curve_bg"
+                android:background="@drawable/otp_edit_text_bg"
                 android:inputType="number"
                 android:maxLength="1"
                 android:ems="1"
@@ -167,7 +167,7 @@
             android:paddingLeft="20dp"
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
-            android:text="आगे बढिये"
+            android:text="@string/nextActivityCTA"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -177,7 +177,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:text="@string/resend_otp"
+            android:text="@string/otpVerificationActivity_resendOTP"
             android:textColorLink="@color/accent2" />
     </LinearLayout>
 

@@ -1,59 +1,85 @@
 <resources>
     <!--  App Level Strings  -->
     <string name="app_name">पशुधन</string>
+
     <!--  SharedPreferences Variables  -->
-    <string name="loginUserUUID">user_uuid</string>
-    <string name="userInfo">userInfo</string>
-    <!--  Activity Level Strings  -->
-    <string name="referral_message">यदि आपके पास रेफेरल कोड हे तोह </string>
-    <string name="referral_link"><u><b>यहाँ क्लिक करें </b></u></string>
-    <string name="enter_otp">Enter OTP</string>
-    <string name="resend_otp"><b><u>ओटीपी दोबारा भेजें</u></b></string>
-    <string name="verify">Verify</string>
-    <string name="ex_258369">ex: 258369</string>
-    <string name="resed_opt"><b>Resend OPT</b></string>
-    <string name="info"><b>जानकारी</b></string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_bottom">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_home_screen">MainActivity</string>
-    <string name="card_text"><b>देसी गाय</b></string>
-    <string name="seller_page_name">पशु बेचे</string>
-    <string name="which_animal">कौन सा पशु</string>
-    <string name="selected_item">Selected item:</string>
-    <string name="breed">नस्ल</string>
-    <string name="age">उम्र</string>
-    <string name="_10">10</string>
-    <string name="byaat">ब्यात</string>
-    <string name="milk_quantity">अभी का दूध(प्रति दिन)</string>
-    <string name="milk_capacity">दूध की क्षमता(प्रति दिन)</string>
-    <string name="price">मूल्य</string>
-    <string name="add_image">फोटो डाले</string>
-    <string name="add_photo_extra">" एक अच्छी तस्वीर अपलोड करना महत्वपूर्ण है"</string>
-    <string name="choose_photo">" फोटो चुनें"</string>
-    <string name="added_photo">added photo</string>
-    <string name="ex_10">ex- 10</string>
-    <string name="ex_50000">ex- 50000</string>
-    <string name="added_image">added image</string>
-    <string name="imp_instructions">महत्वपूर्ण निर्देश</string>
-    <string name="info_bottom">आपकी पोस्ट नाशिक, महाराष्ट्र 000000 के शेत्रो पे दिखाई जाएगी</string>
-    <string name="submit_btn">अपलोड करे</string>
-    <string-array name="Animals">
+    <string name="sp_loginUserUUID">user_uuid</string>
+    <string name="sp_userInfo">userInfo</string>
+
+    <!--  Settings Strings  -->
+    <string name="EN_Locale">en</string>
+    <string name="HI_Locale">hi</string>
+    <string name="MR_Locale">mr</string>
+
+    <!-- Global Activity Level Strings  -->
+    <!--  Common  -->
+    <string name="tryAgainMessage">कृपया दुबारा कोशिश करें</string>
+    <string name="nextActivityCTA">आगे बढिये</string>
+    <!--  MainLoginActivity  -->
+    <string name="mainLoginActivity_subHeading">किसानों का असली धन</string>
+    <string name="mainLoginActivity_phoneNumberLabel">फ़ोन नंबर</string>
+    <string name="mainLoginActivity_phoneNumberPlaceholder">फ़ोन नंबर डाले</string>
+    <string name="mainLoginActivity_referralMessage">यदि आपके पास रेफेरल कोड हे तो</string>
+    <string name="mainLoginActivity_referralLink"><u><b>यहाँ क्लिक करें</b></u></string>
+    <string name="mainLoginActivity_noPhoneNumberErrorMessage">कृप्या फ़ोन नंबर डाले</string>
+    <string name="mainLoginActivity_noPhoneNumberErrorAction">नंबर डाले</string>
+    <string name="mainLoginActivity_smsQuotaExceededMessage">कुछ समय बाद दुबारा प्रयास करें</string>
+    <string name="mainLoginActivity_noPhoneNumberFoundedMessage">कोई फ़ोन नंबर प्राप्त नहीं हुए</string>
+    <string name="mainLoginActivity_loginSuccessfulMessage">प्रवेश सफल</string>
+    <string name="mainLoginActivity_wrongVerificationCodeMessage">कृप्या सही ओटीपी डाले</string>
+    <string name="mainLoginActivity_incompleteVerificationCodeMessage">कृपया पूरा ओटीपी भरे</string>
+    <string name="mainLoginActivity_noCountryCodeErrorMessage">कृप्या कंट्री कोड डालिये </string>
+
+    <!--  OTPVerificationActivity  -->
+    <string name="otpVerificationActivity_resendOTP"><b><u>ओटीपी दोबारा भेजें</u></b></string>
+    <string name="otpVerificationActivity_title">ओटीपी</string>
+    <string name="otpVerificationActivity_instruction">अपने फ़ोन पैर भेजे गए ओटीपी को दर्ज करें</string>
+
+    <!--  UserRegistrationActivity  -->
+    <string name="userRegistrationActivity_heading">जानकारी</string>
+    <string name="userRegistrationActivity_nameLabel">नाम</string>
+    <string name="userRegistrationActivity_firstNamePlaceholder">नाम</string>
+    <string name="userRegistrationActivity_lastNamePlaceholder">उपनाम</string>
+    <string name="userRegistrationActivity_pinCodeLabel">पिन कोड</string>
+    <string name="userRegistrationActivity_pinCodePlaceholder">पिन कोड</string>
+    <string name="userRegistrationActivity_villageLabel">गाँव</string>
+    <string name="userRegistrationActivity_villagePlaceholder">गाँव</string>
+    <string name="userRegistrationActivity_districtLabel">जिला</string>
+    <string name="userRegistrationActivity_districtPlaceholder">जिला</string>
+    <string name="userRegistrationActivity_stateLabel">राज्य</string>
+    <string name="userRegistrationActivity_statePlaceholder">राज्य</string>
+    <string name="userRegistrationActivity_dataUploadSuccessMessage">पंजीकरण पूरा होगया</string>
+    <string name="userRegistrationActivity_findLocationDescription">अपना स्थान खोजिये</string>
+
+    <!--  PashuSalesActivity  -->
+    <string name="pashuSalesActivity_heading">पशु बेचे</string>
+    <string name="pashuSalesActivity_animalTypeLabel">कौन सा पशु</string>
+    <string name="pashuSalesActivity_animalBreedLabel">नस्ल</string>
+    <string name="pashuSalesActivity_animalAgeLabel">उम्र</string>
+    <string name="pashuSalesActivity_animalByaatLabel">ब्यात</string>
+    <string name="pashuSalesActivity_animalMilkQuantityLabel">अभी का दूध (प्रति दिन)</string>
+    <string name="pashuSalesActivity_animalMilkCapacityLabel">दूध की क्षमता (प्रति दिन)</string>
+    <string name="pashuSalesActivity_animalPriceLabel">मूल्य</string>
+    <string name="pashuSalesActivity_animalAddImageLabel">फोटो डाले</string>
+    <string name="pashuSalesActivity_animalAddImageDescription">एक अच्छी तस्वीर अपलोड करना महत्वपूर्ण है</string>
+    <string name="pashuSalesActivity_animalSelectImageLabel">फोटो चुनें</string>
+    <string name="pashuSalesActivity_uploadCTA">अपलोड करे</string>
+    <string name="pashuSalesActivity_fileUploadError">फाइल अपलोड नहीं हो पायी</string>
+    <string name="pashuSalesActivity_addImageContentDescription">इमेज एडेड</string>
+    <string name="pashuSalesActivity_dataUploadSuccess">आपके पशु की जानकारी दर्ज हो गयी है</string>
+    <string-array name="pashuSalesActivity_animalTypes">
         <item>गाय</item>
         <item>भेंस</item>
-        <item>बकरी</item>
         <item>बैल</item>
-        <item>ऊंट</item>
+        <item>भैंसा</item>
+        <item>अन्य पशु</item>
     </string-array>
-    <string-array name="Breed">
+    <string-array name="pashuSalesActivity_animalBreeds">
         <item>जार्सी</item>
         <item>देशी</item>
         <item>गिर</item>
     </string-array>
-    <string-array name="Byaat">
+    <string-array name="pashuSalesActivity_animalByaat">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -62,27 +88,8 @@
         <item>6</item>
         <item>7</item>
     </string-array>
-    <string-array name="Milk_quantity">
-        <item>1-3 lit</item>
-        <item>3-5 lit</item>
-        <item>5-7 lit</item>
-        <item>7-9 lit</item>
-        <item>9-11 lit</item>
-        <item>11-13 lit</item>
-        <item>13-16 lit</item>
-    </string-array>
-    <string-array name="Milk_capacity">
-        <item>1-3 lit</item>
-        <item>3-5 lit</item>
-        <item>5-7 lit</item>
-        <item>7-9 lit</item>
-        <item>9-11 lit</item>
-        <item>11-13 lit</item>
-        <item>13-16 lit</item>
-    </string-array>
-    <string name="title_activity_landing_page">MainActivity</string>
-    <string name="title_activity_pashusell_home">MainActivity</string>
-    <string name="title_activity_home_screen_pashusell">MainActivity</string>
-    <string name="title_activity_main2">MainActivity</string>
-    <string name="title_activity_home_pashusell">MainActivity</string>
+
+    <!--  PashuBazaar  -->
+    <string name="pashuBazaar_cardDummyTitle"><b>देसी गाय</b></string>
+
 </resources>

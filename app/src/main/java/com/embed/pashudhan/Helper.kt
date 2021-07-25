@@ -1,10 +1,13 @@
 package com.embed.pashudhan
 
 import android.content.Context
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 class Helper : AppCompatActivity() {
 
@@ -50,6 +53,16 @@ class Helper : AppCompatActivity() {
             mSnackbar.setActionTextColor(ContextCompat.getColor(ctx, actionColor))
         }
         mSnackbar.show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    fun changeAppLanguage(ctx: Context, language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = ctx.resources.configuration
+        config.setLocale(locale)
+        ctx.createConfigurationContext(config)
+        ctx.resources.updateConfiguration(config, ctx.resources.displayMetrics)
     }
 
 }

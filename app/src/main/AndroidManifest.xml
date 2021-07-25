@@ -12,19 +12,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PashuDhan" >
-        <activity android:name="com.embed.pashudhan.Pashubazar">
+        android:theme="@style/Theme.PashuDhan">
+        <activity android:name="com.embed.pashudhan.Activities.Pashubazar">
 
         </activity>
-        <activity android:name="com.embed.pashudhan.Pashusell"></activity>
-        <activity android:name="com.embed.pashudhan.MainLoginActivity">
+        <activity android:name="com.embed.pashudhan.Activities.PashuSalesActivity"></activity>
+        <activity android:name="com.embed.pashudhan.Activities.MainLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.embed.pashudhan.Registration_page" />
+        <activity android:name="com.embed.pashudhan.Activities.UserRegisterationActivity">
+
+        </activity>
     </application>
 
 </manifest>

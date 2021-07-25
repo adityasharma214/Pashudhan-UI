@@ -1,15 +1,18 @@
-package com.embed.pashudhan
+package com.embed.pashudhan.Activities
 
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.embed.pashudhan.Helper
+import com.embed.pashudhan.R
 import com.google.android.gms.auth.api.credentials.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -23,7 +26,7 @@ class MainLoginActivity : AppCompatActivity() {
 
     // Constants
     companion object {
-        private const val TAG = "MainLoginActivity==>"
+        private val TAG = "MainLoginActivity==>"
         var CREDENTIAL_PICKER_REQUEST = 1
     }
 
@@ -48,29 +51,37 @@ class MainLoginActivity : AppCompatActivity() {
     private var helper: Helper = Helper()
 
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set Default Language as Hindi
+        helper.changeAppLanguage(this, getString(R.string.HI_Locale))
+
         // Get Shared Preferences to check if user is already logged in.
         val checkLoginSharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
-        val mUserUUID = checkLoginSharedPref.getString(getString(R.string.loginUserUUID), "0")
+        val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
 
         // If user is already logged in => redirect to Pashubaazar::class.java
         if (mUserUUID != "0") {
             val intent = Intent(this, Pashubazar::class.java)
-            intent.putExtra(getString(R.string.loginUserUUID), mUserUUID)
+            intent.putExtra(getString(R.string.sp_loginUserUUID), mUserUUID)
             startActivity(intent)
             finish()
 
+            // Else setup Firebase Auth and other login activities
         } else {
+
+            setContentView(R.layout.main_login_activity_layout)
+
+            rootLayout = findViewById(R.id.main_activity_root_layout)
+            mPhoneNumberEditText = findViewById(R.id.phoneNumberEditText)
+            mSubmitBtn = findViewById(R.id.mainLoginActivity_submitButton)
 
             mFirebaseAuth = Firebase.auth
 
             val currentUser = mFirebaseAuth.currentUser
             updateUI(currentUser)
 
-            mPhoneNumberEditText = findViewById(R.id.editTextPhone2)
-            mSubmitBtn = findViewById(R.id.button)
-            rootLayout = findViewById(R.id.main_activity_root_layout)
 
             // Get Saved Phone Numbers to prevent users from manual editing
             mPhoneNumberEditText.setOnClickListener {
@@ -78,18 +89,27 @@ class MainLoginActivity : AppCompatActivity() {
             }
 
             mSubmitBtn.setOnClickListener {
-                if (mPhoneNumberEditText.text.toString() == "") {
+                mPhoneNumberVal = mPhoneNumberEditText.text.toString()
+                if (mPhoneNumberVal == "") {
                     helper.showSnackbar(
                         this,
                         rootLayout,
-                        "कृप्या फ़ोन नंबर डाले",
+                        getString(R.string.mainLoginActivity_noPhoneNumberErrorMessage),
                         helper.ERROR_STATE,
-                        "नंबर डाले",
+                        getString(R.string.mainLoginActivity_noPhoneNumberErrorAction),
                         this::phoneSelection,
                         R.color.accent2
                     )
+                } else if (mPhoneNumberVal.substring(0, 2) != "+91") {
+                    helper.showSnackbar(
+                        this,
+                        rootLayout,
+                        getString(R.string.mainLoginActivity_noCountryCodeErrorMessage),
+                        helper.ERROR_STATE
+                    )
                 } else {
                     mPhoneNumberVal = mPhoneNumberEditText.text.toString()
+                    // TODO Add loader for showing the progress
                     startPhoneNumberVerification(phoneNumber = mPhoneNumberVal)
 
                 }
@@ -110,10 +130,11 @@ class MainLoginActivity : AppCompatActivity() {
 
                         if (e is FirebaseAuthInvalidCredentialsException) {
                             // Invalid request
-                            message = "कृपया दुबारा कोशिश करें"
+                            message = getString(R.string.tryAgainMessage)
                         } else if (e is FirebaseTooManyRequestsException) {
                             // The SMS quota for the project has been exceeded
-                            message = "कुछ समय बाद दुबारा प्रयास करें"
+                            message = ""
+                            message = getString(R.string.mainLoginActivity_smsQuotaExceededMessage)
                         }
 
                         // Show a message and update the UI
@@ -145,7 +166,7 @@ class MainLoginActivity : AppCompatActivity() {
     *
     * */
 
-    // To retrieve the Phone Number hints,
+    // To setup OTP text watcher activity
     private fun setOTPFillingUX() {
         mOTPBuilder = StringBuilder()
 
@@ -270,7 +291,7 @@ class MainLoginActivity : AppCompatActivity() {
         })
     }
 
-
+    // To retrieve the Phone Number hints,
     private fun phoneSelection() {
         val hintRequest = HintRequest.Builder()
             .setPhoneNumberIdentifierSupported(true)
@@ -297,7 +318,6 @@ class MainLoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CREDENTIAL_PICKER_REQUEST && resultCode == RESULT_OK) {
-            Log.d(TAG, "data" + data.toString())
             // get data from the dialog which is of type Credential
             val credential: Credential? = data?.getParcelableExtra(Credential.EXTRA_KEY)
 
@@ -309,7 +329,7 @@ class MainLoginActivity : AppCompatActivity() {
             helper.showSnackbar(
                 this,
                 rootLayout,
-                "कोई फ़ोन नंबर प्राप्त नहीं हुए",
+                getString(R.string.mainLoginActivity_noPhoneNumberFoundedMessage),
                 helper.ERROR_STATE
             )
         } else if (requestCode == CREDENTIAL_PICKER_REQUEST && resultCode == CredentialsApi.ACTIVITY_RESULT_OTHER_ACCOUNT) {
@@ -344,18 +364,18 @@ class MainLoginActivity : AppCompatActivity() {
         token: PhoneAuthProvider.ForceResendingToken?
     ) {
         val optionsBuilder = PhoneAuthOptions.newBuilder(mFirebaseAuth)
-            .setPhoneNumber(phoneNumber)       // Phone number to verify
-            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-            .setActivity(this)                 // Activity (for callback binding)
-            .setCallbacks(mPhoneAuthCallbackFunctions)          // OnVerificationStateChangedCallbacks
+            .setPhoneNumber(phoneNumber)                             // Phone number to verify
+            .setTimeout(60L, TimeUnit.SECONDS)               // Timeout and unit
+            .setActivity(this)                                       // Activity (for callback binding)
+            .setCallbacks(mPhoneAuthCallbackFunctions)               // OnVerificationStateChangedCallbacks
         if (token != null) {
-            optionsBuilder.setForceResendingToken(token) // callback's ForceResendingToken
+            optionsBuilder.setForceResendingToken(token)            // callback's ForceResendingToken
         }
         PhoneAuthProvider.verifyPhoneNumber(optionsBuilder.build())
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        otpLayoutView = findViewById<LinearLayout>(R.id.fillOTPLayout)
+        otpLayoutView = findViewById<LinearLayout>(R.id.otp_verification_root_layout)
         mFirebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -363,34 +383,33 @@ class MainLoginActivity : AppCompatActivity() {
                     val user = task.result?.user
 
                     var mOTPDigits = credential.smsCode?.split("")
-                    Log.d(TAG, "OTP Digits" + mOTPDigits?.get(0))
-                    Log.d(TAG, "OTP Digits" + mOTPDigits?.get(1))
-                    Log.d(TAG, "OTP Digits" + mOTPDigits?.get(2))
-                    Log.d(TAG, "OTP Digits" + mOTPDigits?.get(3))
-                    Log.d(TAG, "OTP Digits" + mOTPDigits?.get(4))
-                    Log.d(TAG, "OTP Digits" + mOTPDigits?.get(5))
-                    findViewById<EditText>(R.id.otpVal1).setText(mOTPDigits?.get(0))
-                    findViewById<EditText>(R.id.otpVal2).setText(mOTPDigits?.get(1))
-                    findViewById<EditText>(R.id.otpVal3).setText(mOTPDigits?.get(2))
-                    findViewById<EditText>(R.id.otpVal4).setText(mOTPDigits?.get(3))
-                    findViewById<EditText>(R.id.otpVal5).setText(mOTPDigits?.get(4))
-                    findViewById<EditText>(R.id.otpVal6).setText(mOTPDigits?.get(5))
+                    findViewById<EditText>(R.id.otpVal1).setText(mOTPDigits?.get(1))
+                    findViewById<EditText>(R.id.otpVal2).setText(mOTPDigits?.get(2))
+                    findViewById<EditText>(R.id.otpVal3).setText(mOTPDigits?.get(3))
+                    findViewById<EditText>(R.id.otpVal4).setText(mOTPDigits?.get(4))
+                    findViewById<EditText>(R.id.otpVal5).setText(mOTPDigits?.get(5))
+                    findViewById<EditText>(R.id.otpVal6).setText(mOTPDigits?.get(6))
 
                     val setLoginSharedPref =
                         this@MainLoginActivity.getPreferences(Context.MODE_PRIVATE)
                     with(setLoginSharedPref.edit()) {
-                        putString(getString(R.string.loginUserUUID), mPhoneNumberVal)
-                        putString(getString(R.string.userInfo), user.toString())
+                        putString(getString(R.string.sp_loginUserUUID), mPhoneNumberVal)
+                        putString(getString(R.string.sp_userInfo), user.toString())
                         apply()
                     }
 
-                    helper.showSnackbar(this, otpLayoutView, "प्रवेश सफल", helper.SUCCESS_STATE)
+                    helper.showSnackbar(
+                        this,
+                        otpLayoutView,
+                        getString(R.string.mainLoginActivity_loginSuccessfulMessage),
+                        helper.SUCCESS_STATE
+                    )
 
                     var handler = Handler()
 
                     handler.postDelayed({
-                        val intent = Intent(this, Registration_page::class.java)
-                        intent.putExtra(getString(R.string.loginUserUUID), mPhoneNumberVal)
+                        val intent = Intent(this, UserRegisterationActivity::class.java)
+                        intent.putExtra(getString(R.string.sp_loginUserUUID), mPhoneNumberVal)
                         startActivity(intent)
                         finish()
                     }, 1000)
@@ -402,7 +421,7 @@ class MainLoginActivity : AppCompatActivity() {
                         helper.showSnackbar(
                             this,
                             otpLayoutView,
-                            "कृप्या सही ओटीपी डाले",
+                            getString(R.string.mainLoginActivity_wrongVerificationCodeMessage),
                             helper.ERROR_STATE
                         )
                     }
@@ -410,47 +429,33 @@ class MainLoginActivity : AppCompatActivity() {
                     helper.showSnackbar(
                         this,
                         otpLayoutView,
-                        "कृप्या दुबारा प्रयास करें",
+                        getString(R.string.tryAgainMessage),
                         helper.ERROR_STATE
                     )
                 }
             }
     }
 
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    override fun onStart() {
-//        super.onStart()
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//
-//    }
-
-
     private fun updateUI(user: FirebaseUser? = mFirebaseAuth.currentUser) {
-        Log.d(TAG, user.toString())
-        setContentView(R.layout.main_login_activity_layout)
+        // Update UI if user found
     }
 
     private fun callVerifyOTPUI(user: FirebaseUser? = mFirebaseAuth.currentUser) {
-        setContentView(R.layout.fill_otp_layout)
-        otpLayoutView = findViewById<LinearLayout>(R.id.fillOTPLayout)
+        setContentView(R.layout.otp_verification_activity_layout)
+        otpLayoutView = findViewById(R.id.otp_verification_root_layout)
         setOTPFillingUX()
-
-        val mOTPDigitsArray = arrayOfNulls<String>(6)
-
-//        mOTPDigitsArray.set(0, findViewById<EditText>(R.id.otpVal1).text.toString());
-//        mOTPDigitsArray.set(1, findViewById<EditText>(R.id.otpVal2).text.toString());
-//        mOTPDigitsArray.set(2, findViewById<EditText>(R.id.otpVal3).text.toString());
-//        mOTPDigitsArray.set(3, findViewById<EditText>(R.id.otpVal4).text.toString());
-//        mOTPDigitsArray.set(4, findViewById<EditText>(R.id.otpVal5).text.toString());
-//        mOTPDigitsArray.set(5, findViewById<EditText>(R.id.otpVal6).text.toString());
-
 
         mVerifyOTPBtn = findViewById(R.id.verify_otp_btn)
         mResendOTPTextView = findViewById(R.id.resend_btn)
 
         mVerifyOTPBtn.setOnClickListener {
             if (mOTPBuilder.length < 6) {
-                helper.showSnackbar(this, otpLayoutView, "कृपया पूरा ओटीपी भरे", helper.ERROR_STATE)
+                helper.showSnackbar(
+                    this,
+                    otpLayoutView,
+                    getString(R.string.mainLoginActivity_incompleteVerificationCodeMessage),
+                    helper.ERROR_STATE
+                )
             } else if (mOTPBuilder.length == 6) {
                 mOTPNumberVal = mOTPBuilder.toString()
                 verifyPhoneNumberWithCode(verificationId = mVerificationIDVal, code = mOTPNumberVal)

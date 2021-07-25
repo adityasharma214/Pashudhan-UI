@@ -1,4 +1,4 @@
-package com.embed.pashudhan
+package com.embed.pashudhan.Activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.embed.pashudhan.Adapters.MyAdapter
+import com.embed.pashudhan.DataModels.Animals
+import com.embed.pashudhan.R
 import com.google.firebase.firestore.*
 
 class Pashubazar : AppCompatActivity() {
@@ -40,7 +43,7 @@ class Pashubazar : AppCompatActivity() {
         submit_btn = findViewById(R.id.button4)
         submit_btn.setOnClickListener {
 
-            val intent = Intent(this, Pashusell::class.java)
+            val intent = Intent(this, PashuSalesActivity::class.java)
             startActivity(intent)
 
         }
