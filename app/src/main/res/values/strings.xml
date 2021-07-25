@@ -30,7 +30,7 @@
     <string name="mainLoginActivity_noPhoneNumberFoundedMessage">कोई फ़ोन नंबर प्राप्त नहीं हुए</string>
     <string name="mainLoginActivity_loginSuccessfulMessage">प्रवेश सफल</string>
     <string name="mainLoginActivity_wrongVerificationCodeMessage">कृप्या सही ओटीपी डाले</string>
-    <string name="mainLoginActivity_incompleteVerificationCodeMessage">कृपया पूरा ओटीपी भरे</string>
+    <string name="mainLoginActivity_incompleteVerificationCodeMessage">कृप्या पूरा ओटीपी भरे</string>
     <string name="mainLoginActivity_noCountryCodeErrorMessage">कृप्या कंट्री कोड डालिये </string>
 
     <!--  OTPVerificationActivity  -->
@@ -80,19 +80,6 @@
     <string name="pashuSalesActivity_defaultSpinnerOption">पता नहीं</string>
     <string name="pashuSalesActivity_allImagesNotUploadedErrorMessage">कृप्या चारो तस्वीर अपलोड करे</string>
 
-    <string-array name="pashuSalesActivity_animalTypes">
-        <item>गाय</item>
-        <item>भेंस</item>
-        <item>बैल</item>
-        <item>भैंसा</item>
-        <item>अन्य पशु</item>
-    </string-array>
-    <string-array name="pashuSalesActivity_animalBreeds">
-        <item></item>
-        <item>जार्सी</item>
-        <item>देशी</item>
-        <item>गिर</item>
-    </string-array>
     <string-array name="pashuSalesActivity_animalByaat">
         <item>ब्यायी नहीं</item>
         <item>पहला (1)</item>
