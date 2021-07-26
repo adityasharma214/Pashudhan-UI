@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Activities.MainLoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="8"
+            android:src="@drawable/logo_png" />
+
+        <TextView
+            android:id="@+id/landingSubHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2"
+            android:text="@string/mainLoginActivity_subHeading"
+            android:textColor="#A4AB82"
+            android:textSize="@dimen/subheading" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/background"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/phoneNumberLabel"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.3"
+                android:text="@string/mainLoginActivity_phoneNumberLabel"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/phoneNumberEditText"
+                android:layout_width="320dp"
+                android:layout_height="51dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/edit_text_bg"
+                android:hint="@string/mainLoginActivity_phoneNumberPlaceholder"
+                android:inputType="phone"
+                android:maxLength="13"
+                android:padding="15dp"
+                android:textColor="@color/black">
+
+                <requestFocus />
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0.3"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/referralMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/mainLoginActivity_referralMessage"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/referralLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/mainLoginActivity_referralLink"
+                    android:textColor="@color/primary"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/mainLoginActivity_submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/registration_btn_bg"
+            android:drawableEnd="@drawable/ic_baseline_chevron_right_24"
+            android:drawableRight="@drawable/ic_baseline_chevron_right_24"
+            android:drawablePadding="10dp"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/nextActivityCTA"
+            android:textColor="@color/white"
+            android:textSize="@dimen/button" />
+
+
+        <ProgressBar
+            android:id="@+id/mainLoginActivity_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mainLoginActivity_submitButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_indicator_btn"
+            android:progress="0"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical">-->
+    <!--        <Button-->
+    <!--            android:id="@+id/truecallerbutton"-->
+    <!--            android:layout_width="170dp"-->
+    <!--            android:layout_height="40dp"-->
+    <!--            android:background="@drawable/truecaller_btn"-->
+    <!--            app:backgroundTint="#1180FF"/>-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/textView4"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginBottom="84dp"-->
+    <!--            android:text="ट्रूकॉलर के साथ करें"/>-->
+
+    <!--    </LinearLayout>-->
+</LinearLayout>

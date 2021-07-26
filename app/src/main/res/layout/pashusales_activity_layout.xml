@@ -1,0 +1,514 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pashuSales_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/pashuSalesHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/pashuSalesActivity_heading"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/title" />
+
+    <ProgressBar
+        android:id="@+id/uploadProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:progress="0"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/loadDataProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:progress="0" />
+
+        <TextView
+            android:id="@+id/progressDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/progressDescription"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/caption" />
+    </LinearLayout>
+
+
+    <ScrollView
+        android:id="@+id/pashuSales_scrollView_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/konsa_pashu" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pashuSalesActivity_animalTypeLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/body" />
+
+                    <Spinner
+                        android:id="@+id/animalTypeSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/spinner_bg"
+                        android:padding="15dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/nassal" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pashuSalesActivity_animalBreedLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/body" />
+
+                    <Spinner
+                        android:id="@+id/animalBreedSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/spinner_bg"
+                        android:padding="15dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/umar" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pashuSalesActivity_animalAgeLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/body" />
+
+                    <EditText
+                        android:id="@+id/animalAgeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:inputType="number"
+                        android:hint="@string/pashuSalesActivity_animalAgePlaceholder"
+                        android:padding="10dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/bayat" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pashuSalesActivity_animalByaatLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/body" />
+
+                    <Spinner
+                        android:id="@+id/animalByaatSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/spinner_bg"
+                        android:spinnerMode="dialog"
+                        android:padding="15dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/abhikadoodh" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pashuSalesActivity_animalMilkQuantityLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/body" />
+
+                    <EditText
+                        android:id="@+id/animalMilkQuantityEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:hint="@string/pashuSalesActivity_animalMilkQuantityPlaceholder"
+                        android:inputType="number"
+                        android:padding="10dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/doodhsamta" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pashuSalesActivity_animalMilkCapacityLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/body" />
+
+                    <EditText
+                        android:id="@+id/animalMilkCapacityEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:hint="@string/pashuSalesActivity_animalMilkCapacityPlaceholder"
+                        android:inputType="number"
+                        android:padding="10dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/mulay" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pashuSalesActivity_animalPriceLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/body" />
+
+                    <EditText
+                        android:id="@+id/animalPriceEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:hint="@string/pashuSalesActivity_animalPricePlaceholder"
+                        android:inputType="number"
+                        android:padding="10dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/pashuSalesActivity_animalAddImageLabel"
+                android:textColor="@color/black"
+                android:textSize="@dimen/subheading" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/pashuSalesActivity_animalAddImageDescription"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/body" />
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <LinearLayout
+                    android:id="@+id/addImageLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/add_image_bg"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/selectedImage1"
+                        android:layout_width="125dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription" />
+
+                    <Button
+                        android:id="@+id/selectPhotoButton1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/accent2"
+                        android:text="@string/pashuSalesActivity_animalSelectImageLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/button" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/addImageLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/add_image_bg"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/selectedImage2"
+                        android:layout_width="125dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription" />
+
+                    <Button
+                        android:id="@+id/selectPhotoButton2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/accent2"
+                        android:text="@string/pashuSalesActivity_animalSelectImageLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/button" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/addImageLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/add_image_bg"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/selectedImage3"
+                        android:layout_width="125dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription" />
+
+                    <Button
+                        android:id="@+id/selectPhotoButton3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/accent2"
+                        android:text="@string/pashuSalesActivity_animalSelectImageLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/button" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/addImageLayout4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/add_image_bg"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/selectedImage4"
+                        android:layout_width="125dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription" />
+
+                    <Button
+                        android:id="@+id/selectPhotoButton4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/accent2"
+                        android:text="@string/pashuSalesActivity_animalSelectImageLabel"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/button" />
+
+                </LinearLayout>
+
+            </GridLayout>
+            <Button
+                android:id="@+id/pashuSales_submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/registration_btn_bg"
+                android:paddingHorizontal="20dp"
+                android:text="@string/pashuSalesActivity_uploadCTA"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

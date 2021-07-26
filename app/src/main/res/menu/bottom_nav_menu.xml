@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuItem_pashuBazaar"
+        android:icon="@drawable/pashubazar"
+        android:title="@string/fragment_pashuBazaar" />
+
+    <item
+        android:id="@+id/menuItem_pashuKahani"
+        android:icon="@drawable/pashukahani"
+        android:title="@string/fragment_pashuKahani" />
+
+    <item
+        android:id="@+id/menuItem_pashuSamwardhan"
+        android:icon="@drawable/pashusanvardhan"
+        android:title="@string/fragment_pashuSamwardhan" />
+</menu>

@@ -4,30 +4,44 @@
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
-                android:color="@android:color/darker_gray" />
-            <solid android:color="@android:color/transparent"/>
-            <corners android:radius="6dp" />
+                android:color="@color/black" />
+            <solid android:color="@color/white" />
+            <corners android:radius="5dp" />
         </shape>
     </item>
     <item android:gravity="center_vertical|right" android:right="8dp">
         <layer-list>
-            <item android:width="12dp" android:height="12dp"  android:gravity="center" android:bottom="10dp">
+            <item
+                android:width="10dp"
+                android:height="10dp"
+                android:bottom="10dp"
+                android:gravity="center">
                 <rotate
                     android:fromDegrees="45"
                     android:toDegrees="45">
                     <shape android:shape="rectangle">
                         <solid android:color="#000000" />
-                        <stroke android:color="#000000" android:width="1dp"/>
+                        <stroke
+                            android:width="2dp"
+                            android:color="#000000" />
+                        <corners android:bottomRightRadius="2dp" />
                     </shape>
                 </rotate>
             </item>
-            <item android:width="10dp" android:height="10dp"  android:gravity="center" android:bottom="10dp">
+            <item
+                android:width="7dp"
+                android:height="7dp"
+                android:bottom="10dp"
+                android:gravity="center">
                 <rotate
                     android:fromDegrees="45"
                     android:toDegrees="45">
                     <shape android:shape="rectangle">
                         <solid android:color="#FFFFFF" />
-                        <stroke android:color="#FFFFFF" android:width="1dp"/>
+                        <stroke
+                            android:width="2dp"
+                            android:color="#FFFFFF" />
+                        <corners android:bottomRightRadius="2dp" />
                     </shape>
                 </rotate>
             </item>
