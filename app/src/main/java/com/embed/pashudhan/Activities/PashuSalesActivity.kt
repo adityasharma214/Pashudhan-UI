@@ -291,6 +291,7 @@ class PashuSalesActivity : AppCompatActivity() {
 
 
         val animalEntry = hashMapOf<String, Any>(
+            "timestamp" to "${System.currentTimeMillis() / 1000}",
             "user_uuid" to mUserUUID,
             "animalType" to mAnimalType,
             "animalBreed" to mAnimalBreed,
@@ -314,6 +315,7 @@ class PashuSalesActivity : AppCompatActivity() {
                 )
                 findViewById<ProgressBar>(R.id.loadDataProgressBar).visibility = View.GONE
                 mProgressDescription.visibility = View.GONE
+                findViewById<ImageView>(R.id.successIcon).visibility = View.VISIBLE
                 var handler = Handler()
 
                 handler.postDelayed({

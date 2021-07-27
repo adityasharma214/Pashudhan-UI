@@ -66,7 +66,7 @@ class MainLoginActivity : AppCompatActivity() {
 
         // If user is already logged in => redirect to Pashubaazar::class.java
         if (mUserUUID != "0") {
-            val intent = Intent(this, Pashubazar::class.java)
+            val intent = Intent(this, BottomNavigationActivity::class.java)
             intent.putExtra(getString(R.string.sp_loginUserUUID), mUserUUID)
             startActivity(intent)
             finish()

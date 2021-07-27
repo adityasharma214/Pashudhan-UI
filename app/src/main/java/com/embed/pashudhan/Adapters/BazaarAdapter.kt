@@ -13,8 +13,8 @@ import com.embed.pashudhan.R
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
-class MyAdapter(private val animallist: ArrayList<Animals>, private val mContext: Context) :
-    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class BazaarAdapter(private val animallist: ArrayList<Animals>, private val mContext: Context) :
+    RecyclerView.Adapter<BazaarAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemview =

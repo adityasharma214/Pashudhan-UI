@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuItem_pashuBazaar"
-        android:icon="@drawable/pashubazar"
+        android:icon="@drawable/ic_pashubazar"
         android:title="@string/fragment_pashuBazaar" />
 
     <item
-        android:id="@+id/menuItem_pashuKahani"
-        android:icon="@drawable/pashukahani"
+        android:id="@+id/menuItem_pashuStory"
+        android:icon="@drawable/ic_pashustory"
         android:title="@string/fragment_pashuKahani" />
 
     <item
         android:id="@+id/menuItem_pashuSamwardhan"
-        android:icon="@drawable/pashusanvardhan"
+        android:icon="@drawable/ic_pashusamwardhan"
         android:title="@string/fragment_pashuSamwardhan" />
 </menu>

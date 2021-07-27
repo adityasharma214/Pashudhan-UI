@@ -101,6 +101,7 @@ class UserRegisterationActivity : AppCompatActivity() {
             stateVal != ""
         ) {
             var userRegistrationData = hashMapOf(
+                "timestamp" to "${System.currentTimeMillis() / 1000}",
                 "firstName" to firstNameVal,
                 "lastName" to lastNameVal,
                 "address" to addressVal,
@@ -122,7 +123,7 @@ class UserRegisterationActivity : AppCompatActivity() {
                     var handler = Handler()
 
                     handler.postDelayed({
-                        val intent = Intent(this, Pashubazar::class.java)
+                        val intent = Intent(this, BottomNavigationActivity::class.java)
                         startActivity(intent)
                         finish()
                     }, 1000)

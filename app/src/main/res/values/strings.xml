@@ -96,7 +96,11 @@
     <string name="fragment_pashuKahani">पशु कहानी</string>
     <string name="fragment_pashuSamwardhan">पशु संवर्धन</string>
 
-    <!--  PashuBazaar  -->
+    <!--  PashuBazaarFragment  -->
     <string name="pashuBazaar_cardDummyTitle"><b>देसी गाय</b></string>
+    <string name="pashuBazaar_fragmentDummyText">PashuBazaar</string>
+    <string name="pashuBazar_pashuSalesCTA">पशु बेचे</string>
+    <string name="pashuBazar_filterCTA">फ़िल्टर</string>
+
 
 </resources>

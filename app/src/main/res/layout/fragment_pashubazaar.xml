@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.PashuBazaarFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/pashuBazaar_filterBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_filter"
+            android:drawableLeft="@drawable/ic_filter"
+            android:text="@string/pashuBazar_filterCTA"
+            android:textColor="@color/black"
+            android:textSize="@dimen/button" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pashuBazaar_recView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pashuBazaar_filterBtn" />
+
+
+        <Button
+            android:id="@+id/pashuSalesCTA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/emptyView"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/pashu_sales_button_bg"
+            android:paddingHorizontal="20dp"
+            android:text="@string/pashuBazar_pashuSalesCTA"
+            android:textColor="@color/white"
+            android:textSize="@dimen/button" />
+
+        <View
+            android:id="@+id/emptyView"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+</FrameLayout>

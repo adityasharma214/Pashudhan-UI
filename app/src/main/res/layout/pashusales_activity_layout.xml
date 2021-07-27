@@ -14,16 +14,6 @@
         android:textColor="@color/primary"
         android:textSize="@dimen/title" />
 
-    <ProgressBar
-        android:id="@+id/uploadProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:progress="0"
-        android:visibility="gone" />
-
     <LinearLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"
@@ -31,6 +21,13 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/successIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_check_circle"
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/loadDataProgressBar"
