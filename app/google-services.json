@@ -1,86 +1,49 @@
 {
   "project_info": {
-    "project_number": "878875307168",
-    "project_id": "pashudhan-1",
-    "storage_bucket": "pashudhan-1.appspot.com"
+    "project_number": "818243562534",
+    "project_id": "pashudhan-bf6da",
+    "storage_bucket": "pashudhan-bf6da.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:878875307168:android:b541b791df1e479cdcadc5",
+        "mobilesdk_app_id": "1:818243562534:android:37c12d84945a47f4800ae7",
         "android_client_info": {
-          "package_name": "com.example.pashu_dhan"
+          "package_name": "com.embed.pashudhan"
         }
       },
       "oauth_client": [
         {
-          "client_id": "878875307168-d3025dtgor6ctlug8c5uif08vrf5oioj.apps.googleusercontent.com",
+          "client_id": "818243562534-2ba53gfr6prg57315hfmfrao6i27c016.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.pashu_dhan",
-            "certificate_hash": "87252c850d75ca7ec2fcf55eaa1c5c582213f902"
-          }
-        },
-        {
-          "client_id": "878875307168-jbika4f3vp74iii7omu58n1h93bumjic.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAK3ULFx83ImnDs_jjOAZf9zkwvneqhCWU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "878875307168-jbika4f3vp74iii7omu58n1h93bumjic.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:878875307168:android:65df07f691cb555adcadc5",
-        "android_client_info": {
-          "package_name": "com.example.pashudhan_1"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "878875307168-623v1ile24csn2pn7s8nrov96i4e4scp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.pashudhan_1",
+            "package_name": "com.embed.pashudhan",
             "certificate_hash": "58a3f7f5f6cc4a75075cd83778212686f9c89bea"
           }
         },
         {
-          "client_id": "878875307168-g1nk6j7mabu8dutbspijtvro78cctm8v.apps.googleusercontent.com",
+          "client_id": "818243562534-aiphr0hfa2s01pt7ho4mcd43dvf0jnte.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.pashudhan_1",
+            "package_name": "com.embed.pashudhan",
             "certificate_hash": "87252c850d75ca7ec2fcf55eaa1c5c582213f902"
           }
         },
         {
-          "client_id": "878875307168-jbika4f3vp74iii7omu58n1h93bumjic.apps.googleusercontent.com",
+          "client_id": "818243562534-dvesafp89853t7mhiahiubenh58cq7ia.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAK3ULFx83ImnDs_jjOAZf9zkwvneqhCWU"
+          "current_key": "AIzaSyBUWed8TccEpYSDbvwrvvwUQ18sWdT8jos"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "878875307168-jbika4f3vp74iii7omu58n1h93bumjic.apps.googleusercontent.com",
+              "client_id": "818243562534-dvesafp89853t7mhiahiubenh58cq7ia.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

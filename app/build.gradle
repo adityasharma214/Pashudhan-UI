@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.pashu_dhan"
+        applicationId "com.embed.pashudhan"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1

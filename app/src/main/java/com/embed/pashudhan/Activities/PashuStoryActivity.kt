@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -174,12 +175,15 @@ class PashuStoryActivity : AppCompatActivity()  {
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
         }
+
+        val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
         // [END upload_memory]
         val kahani = hashMapOf(
             "comments" to 0,
             "img" to imagesRef.toString(),
             "likes" to 0,
-            "user_id" to "iYVt2snBNQfnU8LfXqmJxDlmsEQ2"
+            "user_id" to mUserUUID
         )
 
         db.collection("kahani")
