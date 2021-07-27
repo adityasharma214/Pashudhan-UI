@@ -11,16 +11,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BottomNavigationActivity : AppCompatActivity() {
 
-    private val pashuBazarFragment = PashuBazaarFragment(this)
-    private val pashuSamwardhanFragment = PashuSamwardhanFragment(this)
-    private val pashuStoryActivity = PashuStoryActivity()
+    private val pashuBazarFragment = PashuBazaarFragment()
+    private val pashuSamwardhanFragment = PashuSamwardhanFragment()
     private lateinit var mBottomNavigationMenu: BottomNavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.botton_navigation_activity_layout)
-        replaceFragment(pashuBazarFragment)
+        var selectedFragment = intent.getStringExtra("fragment").toString()
+        if (selectedFragment == "pashuBazaar") {
+            replaceFragment(pashuBazarFragment)
+        } else if (selectedFragment == "pashuSamwardhan") {
+            replaceFragment(pashuSamwardhanFragment)
+        } else {
+            replaceFragment(pashuBazarFragment)
+        }
+
         mBottomNavigationMenu = findViewById(R.id.bottom_navigation)
         mBottomNavigationMenu.setOnNavigationItemSelectedListener {
             when (it.itemId) {

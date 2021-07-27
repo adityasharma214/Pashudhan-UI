@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -57,7 +56,6 @@ class UserRegisterationActivity : AppCompatActivity() {
         setContentView(R.layout.user_registeration_activity_layout)
 
         userRegistrationRootLayout = findViewById(R.id.user_registration_root_layout)
-
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -175,7 +173,7 @@ class UserRegisterationActivity : AppCompatActivity() {
     }
 
     private fun getLocationData(location: Location) {
-        var geoCoder: Geocoder = Geocoder(this, Locale.getDefault())
+        var geoCoder = Geocoder(this, Locale.getDefault())
         var addresses: List<Address>
 
         var latitude: Double = location.latitude
@@ -183,7 +181,6 @@ class UserRegisterationActivity : AppCompatActivity() {
 
         try {
             addresses = geoCoder.getFromLocation(latitude, longitude, 1)
-            Log.d(TAG, "Addresses" + addresses)
             if (addresses != null && addresses.isNotEmpty()) {
                 var address = addresses.get(0).getAddressLine(0)
                 var city = addresses.get(0).locality
