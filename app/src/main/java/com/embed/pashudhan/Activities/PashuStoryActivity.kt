@@ -228,9 +228,10 @@ class PashuStoryActivity : AppCompatActivity() {
             var timestamp = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 DateTimeFormatter.ISO_INSTANT.format(Instant.now())
             } else {
-                  System.currentTimeMillis()
+                System.currentTimeMillis()
             }
-            var imagesRef: StorageReference? = storageRef.child("kahani_images/${rand_str+timestamp}")
+            var imagesRef: StorageReference? =
+                storageRef.child("kahani_images/${rand_str + timestamp}")
             // [START upload_memory]
             // Get the data from an ImageView as bytes
 
@@ -249,6 +250,7 @@ class PashuStoryActivity : AppCompatActivity() {
                 // ...
 
             }
+        }
             val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
             val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
             val kahani = hashMapOf(
@@ -258,6 +260,7 @@ class PashuStoryActivity : AppCompatActivity() {
                 "user_id" to mUserUUID,
                 "timestamp" to FieldValue.serverTimestamp()
             )
+
             db.collection("kahani")
                 .add(kahani)
                 .addOnSuccessListener {DocumentReference ->
@@ -265,7 +268,9 @@ class PashuStoryActivity : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
                 }
-        }
+        uploaded_imges.clear()
+        images_bitmap.clear()
+        images.clear()
         // [END upload_memory]
     setContentView(R.layout.pashu_story_activity_layout)
 
