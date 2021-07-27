@@ -8,36 +8,39 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
+import com.embed.pashudhan.Adapters.ViewPagerAdapter
 import com.embed.pashudhan.R
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
+import java.time.Instant
+import java.time.format.DateTimeFormatter
 
 
-class PashuStoryActivity : AppCompatActivity()  {
+class PashuStoryActivity : AppCompatActivity() {
 
     private lateinit var imageView: ImageView
     val REQUEST_CODE = 200
-    // The request code used in ActivityCompat.requestPermissions()
-// and returned in the Activity's onRequestPermissionsResult()
-    // The request code used in ActivityCompat.requestPermissions()
-// and returned in the Activity's onRequestPermissionsResult()
     val PERMISSION_ALL = 1
     val PERMISSIONS = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -45,10 +48,20 @@ class PashuStoryActivity : AppCompatActivity()  {
     )
     private val db = Firebase.firestore
     private lateinit var share_btn : Button
+    private lateinit var add_more_btn : Button
+    // creating object of ViewPager
+    var mViewPager: ViewPager? = null
+    var images = ArrayList<Int>()
+    var images_bitmap = ArrayList<Bitmap>()
+    // Creating Object of ViewPagerAdapter
+    private var mViewPagerAdapter: ViewPagerAdapter? = null
+    var uploaded_imges = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pashu_story_activity_layout)
+
+
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.feed_menu, menu)
@@ -107,13 +120,32 @@ class PashuStoryActivity : AppCompatActivity()  {
                 0 -> if (resultCode == RESULT_OK && data != null) {
                     val selectedImage = data.extras!!["data"] as Bitmap?
                     setContentView(R.layout.add_feed)
-                    imageView = findViewById(R.id.imageView10)
-                    imageView.setImageBitmap(selectedImage)
+                    images.add(0)
+                    images_bitmap.add(selectedImage!!)
+//                    imageView = findViewById(R.id.imageView10)
+//                    imageView.setImageBitmap(selectedImage)
+                    // Initializing the ViewPager Object
+
+                    // Initializing the ViewPager Object
+                    mViewPager = findViewById<View>(R.id.viewPagerMain) as ViewPager
+
+                    // Initializing the ViewPagerAdapter
+
+                    // Initializing the ViewPagerAdapter
+                    mViewPagerAdapter = ViewPagerAdapter(this@PashuStoryActivity, images, images_bitmap)
+
+                    // Adding the Adapter to the ViewPager
+
+                    // Adding the Adapter to the ViewPager
+                    mViewPager!!.adapter = mViewPagerAdapter
                     share_btn = findViewById(R.id.share_btn)
-                    share_btn.setOnClickListener{
+                    share_btn.setOnClickListener {
                         upload_data()
                     }
-
+                    add_more_btn = findViewById(R.id.add_more_btn)
+                    add_more_btn.setOnClickListener {
+                        selectImage(this)
+                    }
                 }
                 1 -> if (resultCode == RESULT_OK && data != null) {
                     val selectedImage: Uri? = data.data
@@ -128,14 +160,50 @@ class PashuStoryActivity : AppCompatActivity()  {
                             val columnIndex: Int = cursor.getColumnIndex(filePathColumn[0])
                             val picturePath: String = cursor.getString(columnIndex)
                             setContentView(R.layout.add_feed)
-                            imageView = findViewById(R.id.imageView10)
+                            try {
+                                selectedImage?.let {
+                                    if(Build.VERSION.SDK_INT < 28) {
+                                        val bitmap = MediaStore.Images.Media.getBitmap(
+                                            this.contentResolver,
+                                            selectedImage
+                                        )
+                                        images.add(0)
+                                        images_bitmap.add(bitmap)
+                                    } else {
+                                        val source = ImageDecoder.createSource(this.contentResolver, selectedImage)
+                                        val bitmap = ImageDecoder.decodeBitmap(source)
+                                        images.add(0)
+                                        images_bitmap.add(bitmap)
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+//                            var bitmap =
+//                                BitmapFactory.decodeFile(selectedImage.toString())
+
+
+                            // Initializing the ViewPager Object
+                            mViewPager = findViewById<View>(R.id.viewPagerMain) as ViewPager
+                            // Initializing the ViewPagerAdapter
+                            mViewPagerAdapter = ViewPagerAdapter(
+                                this@PashuStoryActivity,
+                                images,
+                                images_bitmap
+                            )
+                            // Adding the Adapter to the ViewPager
+                            mViewPager!!.adapter = mViewPagerAdapter
                             if (!hasPermissions(this, *PERMISSIONS)) {
                                 ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL)
                             }
-                            imageView.setImageURI(selectedImage)
+//                            imageView.setImageURI(selectedImage)
                             share_btn = findViewById(R.id.share_btn)
-                            share_btn.setOnClickListener{
+                            share_btn.setOnClickListener {
                                 upload_data()
+                            }
+                            add_more_btn = findViewById(R.id.add_more_btn)
+                            add_more_btn.setOnClickListener {
+                                selectImage(this)
                             }
                             cursor.close()
                         }
@@ -152,48 +220,55 @@ class PashuStoryActivity : AppCompatActivity()  {
     }
 
     fun upload_data(){
-        var rand_str = getRandomString(15)
 
-        val storage = Firebase.storage
-        var storageRef = storage.reference
-        var imagesRef: StorageReference? = storageRef.child("kahani_images/${rand_str}")
-        // [START upload_memory]
-        // Get the data from an ImageView as bytes
-
-        imageView.isDrawingCacheEnabled = true
-        imageView.buildDrawingCache()
-        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-
-        var uploadTask = imagesRef?.putBytes(data)
-        uploadTask?.addOnFailureListener {
-            // Handle unsuccessful uploads
-            Log.d("ErrorUpload", it.toString())
-        }?.addOnSuccessListener { taskSnapshot ->
-            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-            // ...
-        }
-
-        val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
-        val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
-        // [END upload_memory]
-        val kahani = hashMapOf(
-            "comments" to 0,
-            "img" to imagesRef.toString(),
-            "likes" to 0,
-            "user_id" to mUserUUID
-        )
-
-        db.collection("kahani")
-            .add(kahani)
-            .addOnSuccessListener {
-                    documentReference ->
-                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")}
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
+        for (elements in images_bitmap) {
+            var rand_str = getRandomString(15)
+            val storage = Firebase.storage
+            var storageRef = storage.reference
+            var timestamp = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                DateTimeFormatter.ISO_INSTANT.format(Instant.now())
+            } else {
+                  System.currentTimeMillis()
             }
+            var imagesRef: StorageReference? = storageRef.child("kahani_images/${rand_str+timestamp}")
+            // [START upload_memory]
+            // Get the data from an ImageView as bytes
+
+            val bitmap = elements
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            var uploadTask = imagesRef?.putBytes(data)
+            uploaded_imges.add(imagesRef.toString())
+            uploadTask?.addOnFailureListener {
+                // Handle unsuccessful uploads
+                Log.d("ErrorUpload", it.toString())
+            }?.addOnSuccessListener { taskSnapshot ->
+                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                // ...
+
+            }
+            val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+            val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
+            val kahani = hashMapOf(
+                "comments" to 0,
+                "likes" to 0,
+                "img" to uploaded_imges,
+                "user_id" to mUserUUID,
+                "timestamp" to FieldValue.serverTimestamp()
+            )
+            db.collection("kahani")
+                .add(kahani)
+                .addOnSuccessListener {DocumentReference ->
+                    Log.d(TAG, "DocumentSnapshot written with ID: ${DocumentReference.id}")}
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error adding document", e)
+                }
+        }
+        // [END upload_memory]
+    setContentView(R.layout.pashu_story_activity_layout)
+
     }
 
     fun hasPermissions(context: Context, vararg permissions: String): Boolean = permissions.all {
