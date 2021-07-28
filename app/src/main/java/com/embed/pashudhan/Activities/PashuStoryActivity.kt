@@ -21,6 +21,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.viewpager.widget.ViewPager
@@ -41,18 +42,21 @@ class PashuStoryActivity : AppCompatActivity() {
 
     private lateinit var imageView: ImageView
     val REQUEST_CODE = 200
+    val PICK_IMAGE_MULTIPLE = 1
     val PERMISSION_ALL = 1
     val PERMISSIONS = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.CAMERA
     )
     private val db = Firebase.firestore
-    private lateinit var share_btn : Button
-    private lateinit var add_more_btn : Button
+    private lateinit var share_btn: Button
+    private lateinit var add_more_btn: Button
+
     // creating object of ViewPager
     var mViewPager: ViewPager? = null
     var images = ArrayList<Int>()
     var images_bitmap = ArrayList<Bitmap>()
+
     // Creating Object of ViewPagerAdapter
     private var mViewPagerAdapter: ViewPagerAdapter? = null
     var uploaded_imges = ArrayList<String>()
@@ -63,6 +67,7 @@ class PashuStoryActivity : AppCompatActivity() {
 
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.feed_menu, menu)
         return true
@@ -103,9 +108,17 @@ class PashuStoryActivity : AppCompatActivity() {
                 val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 startActivityForResult(takePicture, 0)
             } else if (options[item] == "Choose from Gallery") {
-                val pickPhoto =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(pickPhoto, 1)
+                var intent = Intent()
+                intent.setType("image/*")
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                intent.setAction(Intent.ACTION_GET_CONTENT)
+
+                //val pickPhoto =
+                //  Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(
+                    Intent.createChooser(intent, "select pictures"),
+                    PICK_IMAGE_MULTIPLE
+                )
             } else if (options[item] == "Cancel") {
                 dialog.dismiss()
             }
@@ -122,6 +135,7 @@ class PashuStoryActivity : AppCompatActivity() {
                     setContentView(R.layout.add_feed)
                     images.add(0)
                     images_bitmap.add(selectedImage!!)
+
 //                    imageView = findViewById(R.id.imageView10)
 //                    imageView.setImageBitmap(selectedImage)
                     // Initializing the ViewPager Object
@@ -132,7 +146,8 @@ class PashuStoryActivity : AppCompatActivity() {
                     // Initializing the ViewPagerAdapter
 
                     // Initializing the ViewPagerAdapter
-                    mViewPagerAdapter = ViewPagerAdapter(this@PashuStoryActivity, images, images_bitmap)
+                    mViewPagerAdapter =
+                        ViewPagerAdapter(this@PashuStoryActivity, images, images_bitmap)
 
                     // Adding the Adapter to the ViewPager
 
@@ -147,30 +162,28 @@ class PashuStoryActivity : AppCompatActivity() {
                         selectImage(this)
                     }
                 }
-                1 -> if (resultCode == RESULT_OK && data != null) {
-                    val selectedImage: Uri? = data.data
-                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-                    if (selectedImage != null) {
-                        val cursor: Cursor? = contentResolver.query(
-                            selectedImage,
-                            filePathColumn, null, null, null
-                        )
-                        if (cursor != null) {
-                            cursor.moveToFirst()
-                            val columnIndex: Int = cursor.getColumnIndex(filePathColumn[0])
-                            val picturePath: String = cursor.getString(columnIndex)
-                            setContentView(R.layout.add_feed)
+                1 -> if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == RESULT_OK && null != data) {
+                    // Get the Image from data
+                    if (data.getClipData() != null) {
+                        val mClipData = data.getClipData()
+                        val cout = data.getClipData()!!.getItemCount()
+                        for (i in 0..cout - 1) {
+                            // adding imageuri in array
+                            var imageurl = data.getClipData()!!.getItemAt(i).getUri()
                             try {
-                                selectedImage?.let {
-                                    if(Build.VERSION.SDK_INT < 28) {
+                                imageurl?.let {
+                                    if (Build.VERSION.SDK_INT < 28) {
                                         val bitmap = MediaStore.Images.Media.getBitmap(
                                             this.contentResolver,
-                                            selectedImage
+                                            imageurl
                                         )
                                         images.add(0)
                                         images_bitmap.add(bitmap)
                                     } else {
-                                        val source = ImageDecoder.createSource(this.contentResolver, selectedImage)
+                                        val source = ImageDecoder.createSource(
+                                            this.contentResolver,
+                                            imageurl
+                                        )
                                         val bitmap = ImageDecoder.decodeBitmap(source)
                                         images.add(0)
                                         images_bitmap.add(bitmap)
@@ -179,47 +192,72 @@ class PashuStoryActivity : AppCompatActivity() {
                             } catch (e: Exception) {
                                 e.printStackTrace()
                             }
-//                            var bitmap =
-//                                BitmapFactory.decodeFile(selectedImage.toString())
+                        }
 
-
-                            // Initializing the ViewPager Object
-                            mViewPager = findViewById<View>(R.id.viewPagerMain) as ViewPager
-                            // Initializing the ViewPagerAdapter
-                            mViewPagerAdapter = ViewPagerAdapter(
-                                this@PashuStoryActivity,
-                                images,
-                                images_bitmap
-                            )
-                            // Adding the Adapter to the ViewPager
-                            mViewPager!!.adapter = mViewPagerAdapter
-                            if (!hasPermissions(this, *PERMISSIONS)) {
-                                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL)
+                    } else {
+                        var imageurl = data.getData()
+                        try {
+                            imageurl?.let {
+                                if (Build.VERSION.SDK_INT < 28) {
+                                    val bitmap = MediaStore.Images.Media.getBitmap(
+                                        this.contentResolver,
+                                        imageurl
+                                    )
+                                    images.add(0)
+                                    images_bitmap.add(bitmap)
+                                } else {
+                                    val source =
+                                        ImageDecoder.createSource(this.contentResolver, imageurl)
+                                    val bitmap = ImageDecoder.decodeBitmap(source)
+                                    images.add(0)
+                                    images_bitmap.add(bitmap)
+                                }
                             }
-//                            imageView.setImageURI(selectedImage)
-                            share_btn = findViewById(R.id.share_btn)
-                            share_btn.setOnClickListener {
-                                upload_data()
-                            }
-                            add_more_btn = findViewById(R.id.add_more_btn)
-                            add_more_btn.setOnClickListener {
-                                selectImage(this)
-                            }
-                            cursor.close()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
                     }
+                    setContentView(R.layout.add_feed)
+                    // Initializing the ViewPager Object
+                    mViewPager = findViewById<View>(R.id.viewPagerMain) as ViewPager
+                    // Initializing the ViewPagerAdapter
+                    mViewPagerAdapter = ViewPagerAdapter(
+                        this@PashuStoryActivity,
+                        images,
+                        images_bitmap
+                    )
+                    // Adding the Adapter to the ViewPager
+                    mViewPager!!.adapter = mViewPagerAdapter
+                    if (!hasPermissions(this, *PERMISSIONS)) {
+                        ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL)
+                    }
+//                            imageView.setImageURI(selectedImage)
+                    share_btn = findViewById(R.id.share_btn)
+                    share_btn.setOnClickListener {
+                        upload_data()
+                    }
+                    add_more_btn = findViewById(R.id.add_more_btn)
+                    add_more_btn.setOnClickListener {
+                        selectImage(this)
+                    }
+
+                } else {
+                    // show this if no image is selected
+                    Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
                 }
             }
         }
     }
-    fun getRandomString(length: Int) : String {
+
+
+    fun getRandomString(length: Int): String {
         val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
         return (1..length)
             .map { allowedChars.random() }
             .joinToString("")
     }
 
-    fun upload_data(){
+    fun upload_data() {
 
         for (elements in images_bitmap) {
             var rand_str = getRandomString(15)
@@ -250,24 +288,26 @@ class PashuStoryActivity : AppCompatActivity() {
                 // ...
 
             }
-        }
-            val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
-            val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
-            val kahani = hashMapOf(
-                "comments" to 0,
-                "likes" to 0,
-                "img" to uploaded_imges,
-                "user_id" to mUserUUID,
-                "timestamp" to FieldValue.serverTimestamp()
-            )
 
-            db.collection("kahani")
-                .add(kahani)
-                .addOnSuccessListener {DocumentReference ->
-                    Log.d(TAG, "DocumentSnapshot written with ID: ${DocumentReference.id}")}
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error adding document", e)
-                }
+        }
+        val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
+        val kahani = hashMapOf(
+            "comments" to 0,
+            "likes" to 0,
+            "img" to uploaded_imges,
+            "user_id" to mUserUUID,
+            "timestamp" to FieldValue.serverTimestamp()
+        )
+
+        db.collection("kahani")
+            .add(kahani)
+            .addOnSuccessListener { DocumentReference ->
+                Log.d(TAG, "DocumentSnapshot written with ID: ${DocumentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
         uploaded_imges.clear()
         images_bitmap.clear()
         images.clear()

@@ -16,16 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PashuDhan">
         <activity android:name=".Activities.PashuStoryActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Activities.BottomNavigationActivity" />
         <activity android:name=".Activities.Pashubazar" />
         <activity android:name=".Activities.PashuSalesActivity" />
         <activity android:name=".Activities.MainLoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".Activities.UserRegisterationActivity" />
     </application>
