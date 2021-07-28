@@ -1,6 +1,5 @@
 package com.embed.pashudhan.Fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,21 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.embed.pashudhan.Activities.PashuSalesActivity
 import com.embed.pashudhan.Adapters.BazaarAdapter
-import com.embed.pashudhan.DataModels.Animals
+import com.embed.pashudhan.DataModels.Pashubazaar
 import com.embed.pashudhan.R
 import com.google.firebase.firestore.*
 
-class PashuBazaarFragment(context: Context) : Fragment() {
+class PashuBazaarFragment : Fragment() {
     private lateinit var mPashuSalesCTA: Button
     private lateinit var mBazaarRecyclerView: RecyclerView
     private lateinit var mBazaarAdapter: BazaarAdapter
-    private lateinit var mAnimalList: ArrayList<Animals>
+    private lateinit var mAnimalList: ArrayList<Pashubazaar>
     private lateinit var PashudhanDB: FirebaseFirestore
-    private var mContext = context
+    private lateinit var mActivity: FragmentActivity
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,19 +36,20 @@ class PashuBazaarFragment(context: Context) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        mActivity = requireActivity()
         mBazaarRecyclerView = view.findViewById(R.id.pashuBazaar_recView)
-        mBazaarRecyclerView.layoutManager = LinearLayoutManager(mContext)
+        mBazaarRecyclerView.layoutManager = LinearLayoutManager(mActivity)
 
         mBazaarRecyclerView.setHasFixedSize(true)
         mAnimalList = arrayListOf()
 
-        mBazaarAdapter = BazaarAdapter(mAnimalList, mContext)
+
+        mBazaarAdapter = BazaarAdapter(mAnimalList, requireContext())
         mBazaarRecyclerView.adapter = mBazaarAdapter
 
         mPashuSalesCTA = view.findViewById(R.id.pashuSalesCTA)
         mPashuSalesCTA.setOnClickListener {
-            val intent = Intent(mContext, PashuSalesActivity::class.java)
+            val intent = Intent(requireContext(), PashuSalesActivity::class.java)
             startActivity(intent)
         }
         EventChangeListener()
@@ -55,7 +57,7 @@ class PashuBazaarFragment(context: Context) : Fragment() {
 
     private fun EventChangeListener() {
         PashudhanDB = FirebaseFirestore.getInstance()
-        PashudhanDB.collection("animal-details")
+        PashudhanDB.collection("Pashubazaar")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(
                     value: QuerySnapshot?,
@@ -68,7 +70,7 @@ class PashuBazaarFragment(context: Context) : Fragment() {
 
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
-                            mAnimalList.add(dc.document.toObject(Animals::class.java))
+                            mAnimalList.add(dc.document.toObject(Pashubazaar::class.java))
                         }
                     }
                     mBazaarAdapter.notifyDataSetChanged()

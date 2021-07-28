@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.embed.pashudhan.Adapters.BazaarAdapter
-import com.embed.pashudhan.DataModels.Animals
+import com.embed.pashudhan.DataModels.Pashubazaar
 import com.embed.pashudhan.R
 import com.google.firebase.firestore.*
 
@@ -17,7 +17,7 @@ class Pashubazar : AppCompatActivity() {
     private lateinit var submit_btn : Button
 
     private lateinit var recyclerview: RecyclerView
-    private lateinit var animalarraylist: ArrayList<Animals>
+    private lateinit var animalarraylist: ArrayList<Pashubazaar>
     private lateinit var mBazaarAdapter: BazaarAdapter
     private lateinit var db: FirebaseFirestore
 
@@ -65,7 +65,7 @@ class Pashubazar : AppCompatActivity() {
 
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                        animalarraylist.add(dc.document.toObject(Animals::class.java))
+                        animalarraylist.add(dc.document.toObject(Pashubazaar::class.java))
                     }
                 }
                 mBazaarAdapter.notifyDataSetChanged()

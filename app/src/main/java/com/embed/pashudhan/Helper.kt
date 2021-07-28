@@ -64,8 +64,4 @@ class Helper : AppCompatActivity() {
         ctx.createConfigurationContext(config)
         ctx.resources.updateConfiguration(config, ctx.resources.displayMetrics)
     }
-
-    fun toArray(arrayList: ArrayList<Any>): Array<Any> {
-        return arrayList.toTypedArray()
-    }
 }

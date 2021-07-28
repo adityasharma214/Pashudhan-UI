@@ -31,7 +31,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:background="@drawable/background"
+        android:background="@drawable/pashubazaar_card_item_bg"
         android:elevation="10dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
