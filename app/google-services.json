@@ -22,6 +22,15 @@
           }
         },
         {
+
+          "client_id": "818243562534-aiphr0hfa2s01pt7ho4mcd43dvf0jnte.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.embed.pashudhan",
+            "certificate_hash": "87252c850d75ca7ec2fcf55eaa1c5c582213f902"
+          }
+        },
+        {
           "client_id": "818243562534-dvesafp89853t7mhiahiubenh58cq7ia.apps.googleusercontent.com",
           "client_type": 3
         }
