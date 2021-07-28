@@ -58,7 +58,7 @@ class MainLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Set Default Language as Hindi
-        helper.changeAppLanguage(this, getString(R.string.HI_Locale))
+//        helper.changeAppLanguage(this, getString(R.string.HI_Locale))
 
         // Get Shared Preferences to check if user is already logged in.
         val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)

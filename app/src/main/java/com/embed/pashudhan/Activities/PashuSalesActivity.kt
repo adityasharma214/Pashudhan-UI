@@ -256,7 +256,7 @@ class PashuSalesActivity : AppCompatActivity() {
         val storageRef = PashudhanStorage.reference
 
         for (image in mImageList) {
-            val imageRef = storageRef.child("Animals/${image.lastPathSegment}")
+            val imageRef = storageRef.child("Pashubazaar/${image.lastPathSegment}")
             val uploadTask = imageRef.putFile(image)
             uploadTask.addOnProgressListener {
                 mProgressLayout.visibility = View.VISIBLE
@@ -289,7 +289,6 @@ class PashuSalesActivity : AppCompatActivity() {
 
     private fun uploadData(imageUriList: ArrayList<String>) {
 
-
         val animalEntry = hashMapOf<String, Any>(
             "timestamp" to "${System.currentTimeMillis() / 1000}",
             "user_uuid" to mUserUUID,
@@ -298,13 +297,13 @@ class PashuSalesActivity : AppCompatActivity() {
             "animalAge" to mAnimalAge,
             "animalByaat" to mAnimalByaat,
             "animalMilkQuantity" to mAnimalMilkQuantity,
-            "animalMiklCapacity" to mAnimalMilkCapacity,
+            "animalMilkCapacity" to mAnimalMilkCapacity,
             "animalPrice" to mAnimalPrice,
             "animalImages" to imageUriList
         )
 
 
-        PashudhanDB.collection("animal-details")
+        PashudhanDB.collection("Pashubazaar")
             .add(animalEntry)
             .addOnSuccessListener {
                 helper.showSnackbar(
@@ -319,7 +318,7 @@ class PashuSalesActivity : AppCompatActivity() {
                 var handler = Handler()
 
                 handler.postDelayed({
-                    val intent = Intent(this, Pashubazar::class.java)
+                    val intent = Intent(this, BottomNavigationActivity::class.java)
                     startActivity(intent)
                     finish()
                 }, 1000)
