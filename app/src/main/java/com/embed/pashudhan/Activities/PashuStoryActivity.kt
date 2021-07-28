@@ -6,11 +6,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -25,9 +22,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.viewpager.widget.ViewPager
+import com.daimajia.slider.library.SliderLayout
 import com.embed.pashudhan.Adapters.ViewPagerAdapter
 import com.embed.pashudhan.R
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -39,6 +36,13 @@ import java.time.format.DateTimeFormatter
 
 
 class PashuStoryActivity : AppCompatActivity() {
+
+    private lateinit var sliderLayout: SliderLayout
+
+    private lateinit var HashMapForURL: HashMap<String, String>
+    private lateinit var HashMapForLocalRes: HashMap<String, Int>
+
+
 
     private lateinit var imageView: ImageView
     val REQUEST_CODE = 200
@@ -64,7 +68,7 @@ class PashuStoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pashu_story_activity_layout)
-
+        sliderLayout = findViewById(R.id.slider)
 
     }
 
@@ -155,7 +159,7 @@ class PashuStoryActivity : AppCompatActivity() {
                     mViewPager!!.adapter = mViewPagerAdapter
                     share_btn = findViewById(R.id.share_btn)
                     share_btn.setOnClickListener {
-                        upload_data()
+                        upload_images()
                     }
                     add_more_btn = findViewById(R.id.add_more_btn)
                     add_more_btn.setOnClickListener {
@@ -234,7 +238,7 @@ class PashuStoryActivity : AppCompatActivity() {
 //                            imageView.setImageURI(selectedImage)
                     share_btn = findViewById(R.id.share_btn)
                     share_btn.setOnClickListener {
-                        upload_data()
+                        upload_images()
                     }
                     add_more_btn = findViewById(R.id.add_more_btn)
                     add_more_btn.setOnClickListener {
@@ -256,8 +260,34 @@ class PashuStoryActivity : AppCompatActivity() {
             .map { allowedChars.random() }
             .joinToString("")
     }
+fun upload_data(link: ArrayList<String>){
+    val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+    val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
 
-    fun upload_data() {
+    val kahani = hashMapOf(
+        "comments" to 0,
+        "likes" to 0,
+        "img" to link,
+        "user_id" to mUserUUID,
+        "timestamp" to FieldValue.serverTimestamp()
+    )
+
+    db.collection("kahani")
+        .add(kahani)
+        .addOnSuccessListener { DocumentReference ->
+            Log.d(TAG, "DocumentSnapshot written with ID: ${DocumentReference.id}")
+        }
+        .addOnFailureListener { e ->
+            Log.w(TAG, "Error adding document", e)
+        }
+
+    uploaded_imges.clear()
+    images_bitmap.clear()
+    images.clear()
+    // [END upload_memory]
+    setContentView(R.layout.pashu_story_activity_layout)
+}
+    fun upload_images() {
 
         for (elements in images_bitmap) {
             var rand_str = getRandomString(15)
@@ -279,40 +309,46 @@ class PashuStoryActivity : AppCompatActivity() {
             val data = baos.toByteArray()
 
             var uploadTask = imagesRef?.putBytes(data)
-            uploaded_imges.add(imagesRef.toString())
-            uploadTask?.addOnFailureListener {
-                // Handle unsuccessful uploads
-                Log.d("ErrorUpload", it.toString())
-            }?.addOnSuccessListener { taskSnapshot ->
-                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                // ...
+            uploadTask?.addOnProgressListener {
 
+            }?.addOnPausedListener {
+                Log.d(TAG, "Upload is paused")
             }
+
+            val urlTask = uploadTask?.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                imagesRef?.downloadUrl
+
+            }?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUri = task.result
+                    uploaded_imges.add(downloadUri.toString())
+                    if (images_bitmap.size == uploaded_imges.size) {
+                        upload_data(uploaded_imges)
+                    }
+                    Log.d("Uploaded", downloadUri.toString())
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+
+//            uploadTask?.addOnFailureListener {
+//                // Handle unsuccessful uploads
+//                Log.d("ErrorUpload", it.toString())
+//            }?.addOnSuccessListener { taskSnapshot ->
+//                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+//                // ...
+//
+//            }
 
         }
-        val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
-        val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
-        val kahani = hashMapOf(
-            "comments" to 0,
-            "likes" to 0,
-            "img" to uploaded_imges,
-            "user_id" to mUserUUID,
-            "timestamp" to FieldValue.serverTimestamp()
-        )
 
-        db.collection("kahani")
-            .add(kahani)
-            .addOnSuccessListener { DocumentReference ->
-                Log.d(TAG, "DocumentSnapshot written with ID: ${DocumentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-            }
-        uploaded_imges.clear()
-        images_bitmap.clear()
-        images.clear()
-        // [END upload_memory]
-        setContentView(R.layout.pashu_story_activity_layout)
+
 
     }
 
@@ -323,5 +359,32 @@ class PashuStoryActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "FirebaseDatabase"
     }
+
+    fun AddImagesUrlOnline() {
+
+        HashMapForURL = HashMap()
+        db.collection("kahani")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+
+//
+//        HashMapForURL["CupCake"] = "http://androidblog.esy.es/images/cupcake-1.png"
+//        HashMapForURL["Donut"] = "http://androidblog.esy.es/images/donut-2.png"
+//        HashMapForURL["Eclair"] = "http://androidblog.esy.es/images/eclair-3.png"
+//        HashMapForURL["Froyo"] = "http://androidblog.esy.es/images/froyo-4.png"
+//        HashMapForURL["GingerBread"] = "http://androidblog.esy.es/images/gingerbread-5.png"
+    }
+
+//    fun AddImageUrlFormLocalRes() {
+//        HashMapForLocalRes = HashMap()
+//
+//    }
 
 }
