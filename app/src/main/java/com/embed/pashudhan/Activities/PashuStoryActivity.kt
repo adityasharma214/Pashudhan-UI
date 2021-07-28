@@ -272,7 +272,7 @@ class PashuStoryActivity : AppCompatActivity() {
         images_bitmap.clear()
         images.clear()
         // [END upload_memory]
-    setContentView(R.layout.pashu_story_activity_layout)
+        setContentView(R.layout.pashu_story_activity_layout)
 
     }
 
