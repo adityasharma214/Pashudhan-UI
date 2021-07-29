@@ -12,10 +12,23 @@
         android:id="@+id/userRegistrationHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/userRegistrationActivity_heading"
         android:textColor="@color/primary"
         android:textSize="@dimen/title" />
+
+
+    <ProgressBar
+        android:id="@+id/addressLoadingBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addressEditText"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true"
+        android:progress="0"
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -101,16 +114,6 @@
                 android:hint="@string/userRegistrationActivity_addressPlaceholder"
                 android:padding="10dp" />
 
-            <ProgressBar
-                android:id="@+id/addressLoadingBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/addressEditText"
-                android:layout_centerHorizontal="true"
-                android:indeterminate="true"
-                android:progress="0"
-                android:visibility="visible" />
         </RelativeLayout>
 
     </LinearLayout>

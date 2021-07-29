@@ -124,12 +124,11 @@
                 android:layout_marginHorizontal="20dp"
                 app:cardCornerRadius="5dp">
 
-                <ImageView
-                    android:id="@+id/pashuBazaar_cardImageView"
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/pashuBazaar_cardViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/download" />
+                    android:layout_height="170dp" />
+
             </androidx.cardview.widget.CardView>
 
 
