@@ -21,12 +21,18 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
-import com.daimajia.slider.library.SliderLayout
+import com.embed.pashudhan.Adapters.BazaarAdapter
+import com.embed.pashudhan.Adapters.StoryAdapter
 import com.embed.pashudhan.Adapters.ViewPagerAdapter
+import com.embed.pashudhan.DataModels.Pashubazaar
+import com.embed.pashudhan.DataModels.StoryDataModel
 import com.embed.pashudhan.R
-import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
@@ -35,12 +41,15 @@ import java.time.Instant
 import java.time.format.DateTimeFormatter
 
 
+
 class PashuStoryActivity : AppCompatActivity() {
 
-    private lateinit var sliderLayout: SliderLayout
 
-    private lateinit var HashMapForURL: HashMap<String, String>
-    private lateinit var HashMapForLocalRes: HashMap<String, Int>
+
+    private lateinit var recyclerview: RecyclerView
+    private lateinit var storyarraylist: ArrayList<StoryDataModel>
+    private lateinit var mstoryAdapter: StoryAdapter
+
 
 
 
@@ -52,7 +61,7 @@ class PashuStoryActivity : AppCompatActivity() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.CAMERA
     )
-    private val db = Firebase.firestore
+    private var db = Firebase.firestore
     private lateinit var share_btn: Button
     private lateinit var add_more_btn: Button
 
@@ -68,8 +77,17 @@ class PashuStoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pashu_story_activity_layout)
-        sliderLayout = findViewById(R.id.slider)
 
+        recyclerview = findViewById(R.id.recycler_view)
+        recyclerview.layoutManager = LinearLayoutManager(this)
+
+        recyclerview.setHasFixedSize(true)
+        storyarraylist = arrayListOf()
+
+        mstoryAdapter = StoryAdapter(storyarraylist, this@PashuStoryActivity)
+        recyclerview.adapter = mstoryAdapter
+
+       EventChangeListener()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -265,11 +283,11 @@ fun upload_data(link: ArrayList<String>){
     val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")
 
     val kahani = hashMapOf(
-        "comments" to 0,
-        "likes" to 0,
+        "comments" to "0",
+        "likes" to "0",
         "img" to link,
         "user_id" to mUserUUID,
-        "timestamp" to FieldValue.serverTimestamp()
+        "timestamp" to "${System.currentTimeMillis() / 1000}"
     )
 
     db.collection("kahani")
@@ -280,7 +298,7 @@ fun upload_data(link: ArrayList<String>){
         .addOnFailureListener { e ->
             Log.w(TAG, "Error adding document", e)
         }
-
+//    AddImagesUrlOnline()
     uploaded_imges.clear()
     images_bitmap.clear()
     images.clear()
@@ -360,31 +378,49 @@ fun upload_data(link: ArrayList<String>){
         private const val TAG = "FirebaseDatabase"
     }
 
-    fun AddImagesUrlOnline() {
-
-        HashMapForURL = HashMap()
-        db.collection("kahani")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
-
+//    fun AddImagesUrlOnline() {
 //
-//        HashMapForURL["CupCake"] = "http://androidblog.esy.es/images/cupcake-1.png"
-//        HashMapForURL["Donut"] = "http://androidblog.esy.es/images/donut-2.png"
-//        HashMapForURL["Eclair"] = "http://androidblog.esy.es/images/eclair-3.png"
-//        HashMapForURL["Froyo"] = "http://androidblog.esy.es/images/froyo-4.png"
-//        HashMapForURL["GingerBread"] = "http://androidblog.esy.es/images/gingerbread-5.png"
-    }
-
-//    fun AddImageUrlFormLocalRes() {
-//        HashMapForLocalRes = HashMap()
-//
+//        db.collection("kahani")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    Log.d(TAG, "${document.id} => ${document.data}")
+//                    var data = document.data
+//                    var images = data["img"].toString()
+//                    Log.d("Image", images )
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.d(TAG, "Error getting documents: ", exception)
+//            }
 //    }
 
+    private fun EventChangeListener() {
+        lateinit var db: FirebaseFirestore
+        db = FirebaseFirestore.getInstance()
+        db.collection("kahani").
+        addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?,
+                error: FirebaseFirestoreException?
+            ) {
+                if (error != null) {
+                    Log.e("Firestore error", error.message.toString())
+                    return
+                }
+
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        Log.d("Images==>", "${dc.document.toObject(StoryDataModel::class.java)}")
+                        storyarraylist.add(dc.document.toObject(StoryDataModel::class.java))
+                    }
+                }
+                mstoryAdapter.notifyDataSetChanged()
+            }
+        })
+
+    }
+
 }
+
+
