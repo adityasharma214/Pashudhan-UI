@@ -11,20 +11,19 @@ import android.widget.LinearLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.embed.pashudhan.R
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-internal class ViewPagerAdapter(// Context object
-    var context: Context, // Array of images
-    var images: ArrayList<Int>,
-    var images_bitmap: ArrayList<Bitmap>
-) :
+internal class ClickedImagesViewPagerAdapter(var ctx: Context, var imagesList: ArrayList<Bitmap>) :
     PagerAdapter() {
     // Layout Inflater
-    var mLayoutInflater: LayoutInflater
+    private var mContext = ctx
+    private var mImageList = imagesList
+    private var mLayoutInflater =
+        mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
     override fun getCount(): Int {
         // return the number of images
-        return images.size
+        return imagesList.size
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -32,28 +31,14 @@ internal class ViewPagerAdapter(// Context object
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        // inflating the item.xml
-        val itemView = mLayoutInflater.inflate(R.layout.item, container, false)
-
-        // referencing the image view from the item.xml file
-        val imageView = itemView.findViewById<View>(R.id.imageViewMain) as ImageView
-
-        // setting the image in the imageView
-        imageView.setImageBitmap(images_bitmap[position])
-
-        // Adding the View
+        val itemView = mLayoutInflater.inflate(R.layout.clicked_image_item, container, false)
+        val imageView = itemView.findViewById<View>(R.id.clickedImageView) as ImageView
+        imageView.setImageBitmap(imagesList[position])
         Objects.requireNonNull(container).addView(itemView)
         return itemView
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as LinearLayout)
-    }
-
-    // Viewpager Constructor
-    init {
-        images = images
-        mLayoutInflater =
-            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 }

@@ -1,11 +1,13 @@
 package com.embed.pashudhan
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.palette.graphics.Palette
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
@@ -64,4 +66,13 @@ class Helper : AppCompatActivity() {
         ctx.createConfigurationContext(config)
         ctx.resources.updateConfiguration(config, ctx.resources.displayMetrics)
     }
+
+    fun getRandomString(length: Int): String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    fun createPaletteSync(bitmap: Bitmap): Palette = Palette.from(bitmap).generate()
 }

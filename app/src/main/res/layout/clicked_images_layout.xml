@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clickedImagesRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/story_ProgressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/story_successIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_check_circle"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/story_loadDataProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:progress="0" />
+
+        <TextView
+            android:id="@+id/story_progressDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/progressDescription"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/caption" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/clickedImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/shareStoryBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
+        android:background="@color/primary"
+        android:paddingHorizontal="20dp"
+        android:text="@string/pashuStory_shareBtnLabel"
+        android:textColor="@color/white"
+        android:textSize="@dimen/button" />
+
+</RelativeLayout>

@@ -1,47 +1,45 @@
 package com.embed.pashudhan.Adapters
 
-import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.viewpager.widget.PagerAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.embed.pashudhan.R
 import java.util.*
 
-class PashuBazaarCardViewPagerAdapter(ctx: Context, images: ArrayList<Uri>) : PagerAdapter() {
+class PashuBazaarCardViewPagerAdapter(holder: BazaarAdapter.MyViewHolder, images: ArrayList<Uri>) :
+    RecyclerView.Adapter<PashuBazaarCardViewPagerAdapter.PashuBazaarCardImageViewHolder>() {
 
-    private var mContext = ctx
+    private var mContext = holder.itemView.context
+    private var mParent = holder
     private var mImageList = images
-    private var mLayoutInflater =
-        mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    override fun getCount(): Int {
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PashuBazaarCardImageViewHolder {
+        var view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.pashubazaar_card_viewpager_item, parent, false)
+        return PashuBazaarCardImageViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: PashuBazaarCardImageViewHolder, position: Int) {
+        var image = mImageList[position]
+        Glide.with(mContext).load(image).placeholder(R.drawable.download)
+            .into(holder.pashuBazaarCardImage)
+    }
+
+    override fun getItemCount(): Int {
         return mImageList.size
     }
 
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view == (`object` as LinearLayout)
+    class PashuBazaarCardImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val pashuBazaarCardImage: ImageView =
+            itemView.findViewById(R.id.pashubazaar_card_viewPager_itemImage)
     }
 
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        var itemView: View =
-            mLayoutInflater.inflate(R.layout.pashubazaar_card_viewpager_item, container, false)
-        var imageView: ImageView =
-            itemView.findViewById(R.id.pashubazaar_card_viewPager_itemImage) as ImageView
-
-        Glide.with(mContext).load(mImageList[position]).placeholder(R.drawable.download)
-            .into(imageView)
-//        imageView.setImageResource(mImageList[position]);
-        Objects.requireNonNull(container).addView(itemView)
-
-        return itemView
-    }
-
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as LinearLayout)
-    }
 }

@@ -102,5 +102,6 @@
     <string name="pashuBazar_pashuSalesCTA">पशु बेचे</string>
     <string name="pashuBazar_filterCTA">फ़िल्टर</string>
 
+    <string name="pashuStory_shareBtnLabel">शेयर करे</string>
 
 </resources>
