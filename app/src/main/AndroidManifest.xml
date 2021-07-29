@@ -15,14 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PashuDhan">
-        <activity android:name=".Activities.PashuStoryActivity"></activity>
+        <activity android:name=".Activities.PashuStoryActivity">
+
+        </activity>
         <activity android:name=".Activities.BottomNavigationActivity" />
         <activity android:name=".Activities.Pashubazar" />
         <activity android:name=".Activities.PashuSalesActivity" />
         <activity android:name=".Activities.MainLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/whatsapp_share"
+        android:icon="@android:drawable/sym_action_chat"
+        android:title="WhatsApp Share"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/open_camera"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="Camera"
+        app:showAsAction="ifRoom"
+        />
+</menu>
