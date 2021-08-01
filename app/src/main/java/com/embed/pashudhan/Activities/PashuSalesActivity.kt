@@ -210,11 +210,12 @@ class PashuSalesActivity : AppCompatActivity() {
                     Log.d(TAG, "$animalBreedData")
                     animalBreedList = animalBreedData.get("breed") as ArrayList<String>
                     animalTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    animalBreedList.add(
-                        0,
-                        getString(R.string.pashuSalesActivity_defaultSpinnerOption)
-                    )
-
+                    if (animalBreedList.get(0) != getString(R.string.pashuSalesActivity_defaultSpinnerOption)) {
+                        animalBreedList.add(
+                            0,
+                            getString(R.string.pashuSalesActivity_defaultSpinnerOption)
+                        )
+                    }
                     val animalBreedSpinner = findViewById<Spinner>(R.id.animalBreedSpinner)
                     if (animalBreedSpinner != null) {
                         val animalBreedAdapter = ArrayAdapter(

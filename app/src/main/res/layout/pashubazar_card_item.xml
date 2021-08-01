@@ -144,6 +144,7 @@
                 android:backgroundTint="@color/secondary"
                 android:src="@drawable/ic_baseline_chevron_right_24"
                 android:id="@+id/pashubazaar_cardNextImageButton"
+                app:borderWidth="0dp"
                 app:fabSize="mini" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -157,6 +158,7 @@
                 android:backgroundTint="@color/secondary"
                 android:src="@drawable/ic_baseline_chevron_left_24"
                 android:id="@+id/pashubazaar_cardPrevImageButton"
+                app:borderWidth="0dp"
                 app:fabSize="mini" />
         </RelativeLayout>
 

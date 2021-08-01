@@ -16,7 +16,7 @@ import com.embed.pashudhan.R
 import jp.shts.android.storiesprogressview.StoriesProgressView
 import java.util.*
 
-class StoryPagerAdapter(ctx: Context, stories: ArrayList<StoryData>) :
+class StoryPagerAdapter(ctx: Context, stories: ArrayList<StoryData>, changeStory: ((Int) -> Unit)) :
     RecyclerView.Adapter<StoryPagerAdapter.StoryPagerViewHolder>() {
 
     companion object {
@@ -25,6 +25,7 @@ class StoryPagerAdapter(ctx: Context, stories: ArrayList<StoryData>) :
 
     private var mContext = ctx
     private var mStoriesList = stories
+    private var mChangeStory = changeStory
     private lateinit var imageUriList: ArrayList<Uri>
     var pressTime = 0L
     var limit = 500L
@@ -60,10 +61,12 @@ class StoryPagerAdapter(ctx: Context, stories: ArrayList<StoryData>) :
             }
             false
         }
-        var image = imageUriList[position]
+
+        var counter = 0
+        var image = imageUriList[counter]
         holder.storiesView.setStoriesCount(imageUriList.size)
         holder.storiesView.setStoryDuration(3000L)
-        var storyListener = StoryListener(position, holder, imageUriList)
+        var storyListener = StoryListener(mChangeStory, position, counter, holder, imageUriList)
         holder.storiesView.setStoriesListener(storyListener)
         holder.storiesView.startStories()
         Glide.with(mContext).load(image).placeholder(R.drawable.download).fitCenter()
@@ -81,7 +84,6 @@ class StoryPagerAdapter(ctx: Context, stories: ArrayList<StoryData>) :
     override fun getItemCount(): Int {
         return mStoriesList.size
     }
-
 
     class StoryPagerViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
         val singleStoryImageView: ImageView = itemView.findViewById(R.id.story_image)

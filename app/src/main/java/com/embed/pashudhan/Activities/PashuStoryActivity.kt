@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.embed.pashudhan.Adapters.*
 import com.embed.pashudhan.DataModels.StoryData
-import com.embed.pashudhan.DataModels.StoryItem
 import com.embed.pashudhan.R
 import com.google.firebase.firestore.*
 
@@ -35,7 +34,8 @@ class PashuStoryActivity : AppCompatActivity() {
             checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0").toString()
         mStoryPageView = findViewById(R.id.storiesHolderViewPager)
         mStoriesList = arrayListOf()
-        mStoryPageAdater = StoryPagerAdapter(this@PashuStoryActivity, mStoriesList)
+        mStoryPageAdater =
+            StoryPagerAdapter(this@PashuStoryActivity, mStoriesList, this::changeStory)
 
         mStoryPageView.adapter = mStoryPageAdater
         mStoryPageView.orientation = ViewPager2.ORIENTATION_VERTICAL
@@ -49,6 +49,10 @@ class PashuStoryActivity : AppCompatActivity() {
         }
 
         EventChangeListener()
+    }
+
+    fun changeStory(i: Int) {
+        mStoryPageView.currentItem = mStoryPageView.currentItem + i
     }
 
     private fun EventChangeListener() {
@@ -68,22 +72,23 @@ class PashuStoryActivity : AppCompatActivity() {
                         if (dc.type == DocumentChange.Type.ADDED) {
                             var document = dc.document.toObject(StoryData::class.java)
                             var storyList = document.storiesList!!
-                            var newList = arrayListOf<StoryItem>()
-                            storyList.forEach {
-                                var storyTimestamp = it.timestamp?.toLong()
-                                var currentTimestamp = System.currentTimeMillis() / 1000
-
-                                var durationInHours =
-                                    (currentTimestamp.minus(storyTimestamp!!)) / 3600
-
-                                if (durationInHours < 24) {
-                                    newList.add(it)
-                                }
-                            }
-                            if (newList.size > 0) {
-                                document.storiesList = newList
-                                mStoriesList.add(document)
-                            }
+//                            var newList = arrayListOf<StoryItem>()
+//                            storyList.forEach {
+//                                var storyTimestamp = it.timestamp?.toLong()
+//                                var currentTimestamp = System.currentTimeMillis() / 1000
+//
+//                                var durationInHours =
+//                                    (currentTimestamp.minus(storyTimestamp!!)) / 3600
+//
+//                                if (durationInHours < 24) {
+//                                    newList.add(it)
+//                                }
+//                            }
+//                            if (newList.size > 0) {
+//                                document.storiesList = newList
+//                                mStoriesList.add(document)
+//                            }
+                            mStoriesList.add(document)
                         }
                     }
                     mStoryPageAdater.notifyDataSetChanged()

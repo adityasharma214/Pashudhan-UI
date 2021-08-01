@@ -6,6 +6,8 @@ import com.embed.pashudhan.R
 import jp.shts.android.storiesprogressview.StoriesProgressView
 
 class StoryListener(
+    changeStory: ((Int) -> Unit),
+    storyPosition: Int,
     counter: Int,
     holder: StoryPagerAdapter.StoryPagerViewHolder,
     imageList: ArrayList<Uri>
@@ -15,6 +17,8 @@ class StoryListener(
     private var mContext = holder.itemView.context
     private var mCounter = counter
     private var mImageList = imageList
+    private var mChangeStory = changeStory
+    private var mStoryPosition = storyPosition
 
     override fun onNext() {
         Glide.with(mContext).load(mImageList[++mCounter]).placeholder(R.drawable.download)
@@ -23,12 +27,14 @@ class StoryListener(
     }
 
     override fun onPrev() {
-        Glide.with(mContext).load(mImageList[--mCounter]).placeholder(R.drawable.download)
-            .fitCenter()
-            .into(mHolder.singleStoryImageView)
+        if (mCounter > 0) {
+            Glide.with(mContext).load(mImageList[--mCounter]).placeholder(R.drawable.download)
+                .fitCenter()
+                .into(mHolder.singleStoryImageView)
+        }
     }
 
     override fun onComplete() {
-        TODO("Not yet implemented")
+        mChangeStory(+1)
     }
 }

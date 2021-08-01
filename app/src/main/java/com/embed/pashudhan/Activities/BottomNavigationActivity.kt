@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.embed.pashudhan.Fragments.PashuBazaarFragment
 import com.embed.pashudhan.Fragments.PashuSamwardhanFragment
+import com.embed.pashudhan.Helper
 import com.embed.pashudhan.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -14,11 +15,13 @@ class BottomNavigationActivity : AppCompatActivity() {
     private val pashuBazarFragment = PashuBazaarFragment()
     private val pashuSamwardhanFragment = PashuSamwardhanFragment()
     private lateinit var mBottomNavigationMenu: BottomNavigationView
-
+    private var helper = Helper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.botton_navigation_activity_layout)
+
+        helper.changeAppLanguage(this, getString(R.string.MR_Locale))
         var selectedFragment = intent.getStringExtra("fragment").toString()
         if (selectedFragment == "pashuBazaar") {
             replaceFragment(pashuBazarFragment)

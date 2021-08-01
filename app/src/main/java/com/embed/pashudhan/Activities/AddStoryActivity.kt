@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -38,6 +39,8 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private var imageCapture: ImageCapture? = null
+    private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var flashMode: Int = ImageCapture.FLASH_MODE_OFF
 
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
@@ -108,8 +111,55 @@ class AddStoryActivity : AppCompatActivity() {
             })
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
+    @SuppressLint("RestrictedApi")
     private fun startCamera() {
+        bindCameraLifeCycle()
+
+        var switchCameraButton = findViewById<ImageButton>(R.id.switchCameraBtn)
+        switchCameraButton.setOnClickListener {
+
+            if (cameraSelector.lensFacing == CameraSelector.LENS_FACING_BACK) {
+                cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+            } else {
+                cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            }
+            try {
+                bindCameraLifeCycle()
+            } catch (exc: Exception) {
+            }
+        }
+
+        var closeCameraButton = findViewById<ImageButton>(R.id.closeCameraBtn)
+        closeCameraButton.setOnClickListener {
+            val intent = Intent(this, PashuStoryActivity::class.java)
+            startActivity(intent)
+            cameraExecutor.shutdown()
+            finish()
+        }
+
+        var flashButton = findViewById<ImageButton>(R.id.flashBtn)
+        flashButton.setOnClickListener {
+            when (flashMode) {
+                ImageCapture.FLASH_MODE_OFF -> {
+                    flashMode = ImageCapture.FLASH_MODE_ON
+                    flashButton.setImageDrawable(getDrawable(R.drawable.ic_flash_on))
+                }
+                ImageCapture.FLASH_MODE_ON -> {
+                    flashMode = ImageCapture.FLASH_MODE_AUTO
+                    flashButton.setImageDrawable(getDrawable(R.drawable.ic_flash_auto))
+                }
+                ImageCapture.FLASH_MODE_AUTO -> {
+                    flashMode = ImageCapture.FLASH_MODE_OFF
+                    flashButton.setImageDrawable(getDrawable(R.drawable.ic_flash_off))
+                }
+            }
+            // Re-bind use cases to include changes
+            bindCameraLifeCycle()
+        }
+    }
+
+    @SuppressLint("UnsafeOptInUsageError")
+    private fun bindCameraLifeCycle() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener(Runnable {
@@ -124,9 +174,11 @@ class AddStoryActivity : AppCompatActivity() {
                 }
             val viewPort = findViewById<PreviewView>(R.id.storyViewport).viewPort
             imageCapture = ImageCapture.Builder()
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+                .setFlashMode(flashMode)
                 .build()
             // Select back camera as a default
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
             val useCaseGroup = viewPort?.let {
                 UseCaseGroup.Builder()
                     .addUseCase(preview)

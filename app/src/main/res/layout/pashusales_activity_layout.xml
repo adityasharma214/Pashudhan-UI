@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/successIcon"
@@ -53,7 +53,7 @@
         android:id="@+id/pashuSales_scrollView_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -381,6 +381,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="40dp"
                 android:columnCount="2"
                 android:rowCount="2">
 
@@ -397,7 +398,8 @@
                         android:id="@+id/selectedImage1"
                         android:layout_width="125dp"
                         android:layout_height="100dp"
-                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription" />
+                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription"
+                        android:src="@drawable/animal_view1" />
 
                     <Button
                         android:id="@+id/selectPhotoButton1"
@@ -423,7 +425,8 @@
                         android:id="@+id/selectedImage2"
                         android:layout_width="125dp"
                         android:layout_height="100dp"
-                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription" />
+                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription"
+                        android:src="@drawable/animal_view2" />
 
                     <Button
                         android:id="@+id/selectPhotoButton2"
@@ -449,7 +452,8 @@
                         android:id="@+id/selectedImage3"
                         android:layout_width="125dp"
                         android:layout_height="100dp"
-                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription" />
+                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription"
+                        android:src="@drawable/animal_view3" />
 
                     <Button
                         android:id="@+id/selectPhotoButton3"
@@ -475,7 +479,8 @@
                         android:id="@+id/selectedImage4"
                         android:layout_width="125dp"
                         android:layout_height="100dp"
-                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription" />
+                        android:contentDescription="@string/pashuSalesActivity_addImageContentDescription"
+                        android:src="@drawable/animal_view4" />
 
                     <Button
                         android:id="@+id/selectPhotoButton4"

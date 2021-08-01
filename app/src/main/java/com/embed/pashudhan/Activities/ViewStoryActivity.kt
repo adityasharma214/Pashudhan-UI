@@ -27,6 +27,7 @@ class ViewStoryActivity : AppCompatActivity() {
     private val PashudhanDB = Firebase.firestore
     private lateinit var mUserUUID: String
     private lateinit var mShareButton: Button
+    private lateinit var mCloseButton: ImageButton
 
     private var helper = Helper()
 
@@ -45,6 +46,12 @@ class ViewStoryActivity : AppCompatActivity() {
         mShareButton.setOnClickListener {
             uploadImage(mImageURI)
         }
+        mCloseButton = findViewById(R.id.closeViewImageBtn)
+        mCloseButton.setOnClickListener {
+            val intent = Intent(this, AddStoryActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
     }
 
@@ -59,7 +66,7 @@ class ViewStoryActivity : AppCompatActivity() {
         var uploadTask = imageRef.putFile(mImageURI)
         uploadTask.addOnProgressListener {
             findViewById<LinearLayout>(R.id.story_ProgressLayout).visibility = View.VISIBLE
-            mClickedImageView.visibility = View.GONE
+            findViewById<RelativeLayout>(R.id.viewImageControlLayout).visibility = View.GONE
         }.addOnPausedListener {
             Log.d(TAG, "Upload is paused")
         }
