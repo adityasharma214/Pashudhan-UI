@@ -6,47 +6,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.viewpager.widget.PagerAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.embed.pashudhan.Helper
 import com.embed.pashudhan.R
 import java.util.*
 
-class SingleStoryAdapter(ctx: Context, images: ArrayList<Uri>) : PagerAdapter() {
+class SingleStoryAdapter(ctx: Context, images: ArrayList<Uri>) :
+    RecyclerView.Adapter<SingleStoryAdapter.SingleStoryViewHolder>() {
 
     private var mContext = ctx
     private var mImageList = images
-    private var mLayoutInflater =
-        mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private var helper = Helper()
 
-    override fun getCount(): Int {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleStoryViewHolder {
+        var view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.single_story_card, parent, false)
+        return SingleStoryViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: SingleStoryViewHolder, position: Int) {
+        var image = mImageList[position]
+        Glide.with(mContext).load(image).placeholder(R.drawable.download).fitCenter()
+            .into(holder.singleStoryImageView)
+    }
+
+    override fun getItemCount(): Int {
         return mImageList.size
     }
 
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view == (`object` as LinearLayout)
-    }
-
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-
-        var itemView: View =
-            mLayoutInflater.inflate(R.layout.single_story_card, container, false)
-        var imageView: ImageView =
-            itemView.findViewById(R.id.singleImageViewStory) as ImageView
-
-        var image = mImageList[position]
-
-        Glide.with(mContext).load(image).placeholder(R.drawable.download).fitCenter()
-            .into(imageView)
-
-        Objects.requireNonNull(container).addView(itemView)
-
-        return itemView
-    }
-
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as LinearLayout)
+    class SingleStoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val singleStoryImageView: ImageView = itemView.findViewById(R.id.story_image)
     }
 }

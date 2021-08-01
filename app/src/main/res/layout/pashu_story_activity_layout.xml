@@ -59,7 +59,7 @@
                 android:weightSum="2">
 
                 <ImageButton
-                    android:id="@+id/shareStoryBtn"
+                    android:id="@+id/shareStoryWhatsappBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"

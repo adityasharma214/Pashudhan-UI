@@ -256,7 +256,8 @@ class PashuSalesActivity : AppCompatActivity() {
         val storageRef = PashudhanStorage.reference
 
         for (image in mImageList) {
-            val imageRef = storageRef.child("Pashubazaar/${image.lastPathSegment}")
+            val fileName = helper.getRandomString(15)
+            val imageRef = storageRef.child("Pashubazaar/${fileName}.jpg")
             val uploadTask = imageRef.putFile(image)
             uploadTask.addOnProgressListener {
                 mProgressLayout.visibility = View.VISIBLE
