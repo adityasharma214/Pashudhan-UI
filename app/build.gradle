@@ -84,4 +84,6 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:1.0.1"
     implementation "androidx.camera:camera-view:1.0.0-alpha27"
     implementation 'com.github.shts:StoriesProgressView:3.0.0'
+    implementation 'com.burhanrashid52:photoeditor:1.5.1'
+    implementation 'com.github.rtugeek:colorseekbar:1.7.7'
 }

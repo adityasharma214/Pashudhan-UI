@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.embed.pashudhan">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-
 
     <uses-feature android:name="android.hardware.camera.any" />
 
@@ -20,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PashuDhan">
-        <activity android:name=".Activities.ViewStoryActivity"></activity>
+        <activity android:name=".Activities.PhotoEditorActivity"></activity>
+        <activity android:name=".Activities.ViewStoryActivity" />
         <activity android:name=".Activities.AddStoryActivity" />
         <activity android:name=".Activities.PashuStoryActivity" />
         <activity android:name=".Activities.BottomNavigationActivity" />

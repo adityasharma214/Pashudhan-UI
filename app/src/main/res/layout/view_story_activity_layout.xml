@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/clickedImagesRootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -43,10 +44,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/clickedImageView"
+        <!--        <ImageView-->
+        <!--            android:id="@+id/clickedImageView"-->
+        <!--            android:layout_width="fill_parent"-->
+        <!--            android:layout_height="fill_parent"-->
+        <!--            android:layout_margin="0dp"-->
+        <!--            android:padding="0dp" />-->
+
+        <ja.burhanrashid52.photoeditor.PhotoEditorView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:id="@+id/photoEditorView"
             android:layout_margin="0dp"
             android:padding="0dp" />
 
@@ -59,6 +67,17 @@
             android:layout_margin="20dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_close" />
+
+        <ImageButton
+            android:id="@+id/saveChangesInEditor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_check"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/shareStoryBtn"
@@ -73,6 +92,76 @@
             android:text="@string/pashuStory_shareBtnLabel"
             android:textColor="@color/white"
             android:textSize="@dimen/button" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="40dp"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addTextToStory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/secondary"
+                android:backgroundTint="@color/primary"
+                android:src="@drawable/ic_text"
+                app:borderWidth="0dp"
+                app:fabSize="mini" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/saveStoryToStorage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/secondary"
+                android:backgroundTint="@color/secondary"
+                android:src="@drawable/ic_save"
+                app:borderWidth="0dp"
+                app:fabSize="mini" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addStickerToStory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/secondary"
+                android:backgroundTint="@color/accent"
+                android:src="@drawable/ic_sticker"
+                app:borderWidth="0dp"
+                app:fabSize="mini" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/storyAddTextField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/story_edit_text"
+            android:padding="10dp"
+            android:text="@string/pashuStory_addTextPlaceholder"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/subheading"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <com.rtugeek.android.colorseekbar.ColorSeekBar
+            android:id="@+id/colorSlider"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            app:colorSeeds="@array/material_colors"
+            app:isVertical="true" />
+
     </RelativeLayout>
 
 

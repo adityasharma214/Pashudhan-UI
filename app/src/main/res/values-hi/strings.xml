@@ -92,5 +92,6 @@
     <string name="pashuBazar_filterCTA">फ़िल्टर</string>
 
     <string name="pashuStory_shareBtnLabel">शेयर करे</string>
+    <string name="pashuStory_addTextPlaceholder">कुछ टाइप करे</string>
 
 </resources>

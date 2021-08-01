@@ -103,5 +103,6 @@
 
     <string name="pashuStory_shareBtnLabel">शेयर करे</string>
     <string name="pashuBazaar_fragmentDummyText">पशु बाज़ार</string>
+    <string name="pashuStory_addTextPlaceholder">कुछ टाइप करे</string>
 
 </resources>
