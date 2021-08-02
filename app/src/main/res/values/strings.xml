@@ -105,6 +105,9 @@
     <string name="pashuBazaar_fragmentDummyText">पशु बाज़ार</string>
     <string name="pashuStory_addTextPlaceholder">कुछ टाइप करे</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="pashuStory_addCommentPlaceholder">अपने विचार लिखिए</string>
+    <string name="pashuStory_addCommentCTA">कमेंट</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

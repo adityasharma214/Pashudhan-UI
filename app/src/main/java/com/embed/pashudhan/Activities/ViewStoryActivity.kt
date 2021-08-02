@@ -45,6 +45,7 @@ import com.rtugeek.android.colorseekbar.ColorSeekBar.OnColorChangeListener
 import ja.burhanrashid52.photoeditor.*
 import ja.burhanrashid52.photoeditor.PhotoEditor.OnSaveListener
 import java.io.File
+import java.io.Serializable
 
 
 class ViewStoryActivity : AppCompatActivity() {
@@ -355,11 +356,11 @@ class ViewStoryActivity : AppCompatActivity() {
         val storyItem = hashMapOf(
             "imageUri" to downloadUri,
             "timestamp" to "${System.currentTimeMillis() / 1000}",
-            "storyComments" to "0",
-            "likes" to "0",
+            "storyComments" to arrayListOf<String>(),
+            "likes" to arrayListOf<String>(),
         )
 
-        var storyItemToArray = ArrayList<HashMap<String, String>>()
+        var storyItemToArray = ArrayList<HashMap<String, Serializable>>()
         storyItemToArray.add(storyItem)
 
         val storiesList = hashMapOf(
