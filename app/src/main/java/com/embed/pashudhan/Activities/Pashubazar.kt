@@ -4,15 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.embed.pashudhan.Adapters.BazaarAdapter
+import com.embed.pashudhan.Adapters.OnBazaarItemClickListner
 import com.embed.pashudhan.DataModels.Pashubazaar
 import com.embed.pashudhan.R
 import com.google.firebase.firestore.*
 
-class Pashubazar : AppCompatActivity() {
+class Pashubazar : AppCompatActivity(), OnBazaarItemClickListner{
 
     private lateinit var submit_btn : Button
 
@@ -35,7 +37,7 @@ class Pashubazar : AppCompatActivity() {
         recyclerview.setHasFixedSize(true)
         animalarraylist = arrayListOf()
 
-        mBazaarAdapter = BazaarAdapter(animalarraylist, this@Pashubazar)
+        mBazaarAdapter = BazaarAdapter(animalarraylist, this, this)
         recyclerview.adapter = mBazaarAdapter
 
 
@@ -72,5 +74,9 @@ class Pashubazar : AppCompatActivity() {
             }
         })
 
+    }
+
+    override fun onItemclick(item: Pashubazaar, position: Int) {
+        Toast.makeText(this, item.animalBreed, Toast.LENGTH_SHORT).show()
     }
 }

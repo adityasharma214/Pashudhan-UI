@@ -7,17 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.embed.pashudhan.Activities.PashuSalesActivity
 import com.embed.pashudhan.Adapters.BazaarAdapter
+import com.embed.pashudhan.Adapters.OnBazaarItemClickListner
 import com.embed.pashudhan.DataModels.Pashubazaar
 import com.embed.pashudhan.R
 import com.google.firebase.firestore.*
 
-class PashuBazaarFragment : Fragment() {
+class PashuBazaarFragment : Fragment(), OnBazaarItemClickListner {
+
     private lateinit var mPashuSalesCTA: Button
     private lateinit var mBazaarRecyclerView: RecyclerView
     private lateinit var mBazaarAdapter: BazaarAdapter
@@ -44,7 +47,7 @@ class PashuBazaarFragment : Fragment() {
         mAnimalList = arrayListOf()
 
 
-        mBazaarAdapter = BazaarAdapter(mAnimalList, requireContext())
+        mBazaarAdapter = BazaarAdapter(mAnimalList, this, this)
         mBazaarRecyclerView.adapter = mBazaarAdapter
 
         mPashuSalesCTA = view.findViewById(R.id.pashuSalesCTA)
@@ -77,6 +80,10 @@ class PashuBazaarFragment : Fragment() {
                 }
             })
 
+    }
+
+    override fun onItemclick(item: Pashubazaar, position: Int) {
+        Toast.makeText(this, item.animalBreed, Toast.LENGTH_SHORT).show()
     }
 
 
