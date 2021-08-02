@@ -22,7 +22,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PashuDhan">
-        <activity android:name=".Activities.PhotoEditorActivity"></activity>
+        <activity android:name=".Activities.Notifications"></activity>
+        <activity android:name=".Activities.Profile" />
+
+        <meta-data
+            android:name="fontProviderRequests"
+            android:value="Noto Color Emoji Compat" />
+
+        <activity android:name=".Activities.PhotoEditorActivity" />
         <activity android:name=".Activities.ViewStoryActivity" />
         <activity android:name=".Activities.AddStoryActivity" />
         <activity android:name=".Activities.PashuStoryActivity" />

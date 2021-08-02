@@ -40,6 +40,7 @@ class PashuBazaarFragment : Fragment() {
         mBazaarRecyclerView = view.findViewById(R.id.pashuBazaar_recView)
         mBazaarRecyclerView.layoutManager = LinearLayoutManager(mActivity)
 
+
         mBazaarRecyclerView.setHasFixedSize(true)
         mAnimalList = arrayListOf()
 

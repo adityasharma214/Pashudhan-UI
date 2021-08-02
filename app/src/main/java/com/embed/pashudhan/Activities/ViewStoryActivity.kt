@@ -4,6 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,8 +18,23 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.embed.pashudhan.BitmapUtils
 import com.embed.pashudhan.Helper
 import com.embed.pashudhan.R
+import com.giphy.sdk.core.models.Image
+import com.giphy.sdk.core.models.Media
+import com.giphy.sdk.core.models.enums.RatingType
+import com.giphy.sdk.ui.GPHContentType
+import com.giphy.sdk.ui.GPHSettings
+import com.giphy.sdk.ui.Giphy
+import com.giphy.sdk.ui.drawables.ImageFormat
+import com.giphy.sdk.ui.themes.GPHTheme
+import com.giphy.sdk.ui.themes.GridType
+import com.giphy.sdk.ui.views.GiphyDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -39,6 +56,7 @@ class ViewStoryActivity : AppCompatActivity() {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
         )
+        private val ANDROID_SDK_KEY = "AYIm5gZO5TlA4re79VV0WEg1NAF0nKjK"
     }
 
     private lateinit var mImageURI: Uri
@@ -57,7 +75,7 @@ class ViewStoryActivity : AppCompatActivity() {
     private lateinit var colorSlider: ColorSeekBar
     private lateinit var editMode: String
     private lateinit var outputDirectory: File
-
+    private lateinit var dialog: GiphyDialogFragment
 
     private var helper = Helper()
 
@@ -65,6 +83,7 @@ class ViewStoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_story_activity_layout)
+
 
         mImageURI = Uri.parse(intent.getStringExtra("imageUri").toString())
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
@@ -75,8 +94,7 @@ class ViewStoryActivity : AppCompatActivity() {
         rootLayout = findViewById(R.id.viewImageControlLayout)
         mShareButton = findViewById(R.id.shareStoryBtn)
         mShareButton.setOnClickListener {
-            saveFileToStorage()
-            uploadImage(mImageURI)
+            uploadImage()
         }
         outputDirectory = getOutputDirectory()
         mCloseButton = findViewById(R.id.closeViewImageBtn)
@@ -89,10 +107,6 @@ class ViewStoryActivity : AppCompatActivity() {
 
         mSaveSettingButton.setOnClickListener {
             if (editMode == "text") {
-                Log.d(
-                    TAG,
-                    addTextToStoryEditText.text.toString() + addTextToStoryEditText.currentTextColor
-                )
                 addTextToStoryEditText.visibility = View.GONE
                 colorSlider.visibility = View.GONE
                 mClickedPhotoEditor.addText(
@@ -104,15 +118,18 @@ class ViewStoryActivity : AppCompatActivity() {
             }
         }
 
-        mClickedPhotoEditor = PhotoEditor.Builder(this, mClickedPhotoEditorView).build()
+        mClickedPhotoEditor = PhotoEditor.Builder(this, mClickedPhotoEditorView)
+            .setDefaultEmojiTypeface(ResourcesCompat.getFont(this, R.font.emojione_android))
+            .build()
         mAddTextToStoryButton = findViewById(R.id.addTextToStory)
         addTextToStoryEditText = findViewById(R.id.storyAddTextField)
         colorSlider = findViewById(R.id.colorSlider)
         mAddTextToStoryButton.setOnClickListener {
             editMode = "text"
+            addTextToStoryEditText.setText(resources.getString(R.string.pashuStory_addTextPlaceholder))
             addTextToStoryEditText.visibility = View.VISIBLE
             colorSlider.visibility = View.VISIBLE
-            colorSlider.setThumbHeight(50f)
+            colorSlider.setThumbHeight(30f)
             addTextToStoryEditText.requestFocus()
             mSaveSettingButton.visibility = View.VISIBLE
         }
@@ -131,6 +148,69 @@ class ViewStoryActivity : AppCompatActivity() {
                     this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
                 )
             }
+        }
+        mAddStickerToStoryButton = findViewById(R.id.addStickerToStory)
+
+        Giphy.configure(this, ANDROID_SDK_KEY)
+
+        val settings = GPHSettings(
+            GridType.waterfall,
+            GPHTheme.Light,
+            arrayOf(GPHContentType.sticker, GPHContentType.text, GPHContentType.emoji),
+            selectedContentType = GPHContentType.sticker,
+            rating = RatingType.pg13,
+            stickerColumnCount = 3,
+            imageFormat = ImageFormat.WEBP
+        )
+        mAddStickerToStoryButton.setOnClickListener {
+            dialog = GiphyDialogFragment.newInstance(settings)
+            dialog.gifSelectionListener = getGifSelectionListener()
+            dialog.show(supportFragmentManager, "gifs_dialog")
+        }
+
+    }
+
+    private fun getGifSelectionListener() = object : GiphyDialogFragment.GifSelectionListener {
+        override fun onGifSelected(
+            media: Media,
+            searchTerm: String?,
+            selectedContentType: GPHContentType
+        ) {
+            var image: Image = media.images.fixedWidth!!
+            var gifUrl = image.gifUrl
+
+            Glide.with(this@ViewStoryActivity)
+                .asBitmap()
+                .load(gifUrl)
+                .override(200, 200)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        var cBitmap = BitmapUtils().compressBitmap(resource, 40)
+                        mClickedPhotoEditor.addImage(cBitmap)
+                        dialog.dismiss()
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        // this is called when imageView is cleared on lifecycle call or for
+                        // some other reason.
+                        // if you are referencing the bitmap somewhere else too other than this imageView
+                        // clear it here as you can no longer have the bitmap
+                    }
+                })
+
+//            mClickedPhotoEditor.addImage(bitmap)
+//            dialog.dismiss()
+        }
+
+        override fun onDismissed(selectedContentType: GPHContentType) {
+            Log.d(TAG, "onDismissed")
+        }
+
+        override fun didSearchTerm(term: String) {
+            Log.d(TAG, "didSearchTerm $term")
         }
     }
 
@@ -175,63 +255,97 @@ class ViewStoryActivity : AppCompatActivity() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             allPermissionsGranted()
-            return
+        } else {
+            val fileName = helper.getRandomString(15)
+            // Create time-stamped output file to hold the image
+            val photoFile = File(
+                outputDirectory, "${fileName}_${System.currentTimeMillis() / 1000}.jpg"
+            )
+            Log.d(TAG, photoFile.absolutePath)
+            mClickedPhotoEditor.saveAsFile(photoFile.absolutePath, object : OnSaveListener {
+                override fun onSuccess(imagePath: String) {
+                    mImageURI = Uri.fromFile(photoFile)
+                    mClickedPhotoEditorView.source.setImageURI(mImageURI)
+                    Toast.makeText(
+                        this@ViewStoryActivity,
+                        "Image Saved at ${photoFile.absolutePath}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                override fun onFailure(exception: Exception) {
+                    Log.e("PhotoEditor", "Failed to save Image")
+                }
+            })
         }
-
-        val fileName = helper.getRandomString(15)
-        // Create time-stamped output file to hold the image
-        val photoFile = File(
-            outputDirectory, "${fileName}_${System.currentTimeMillis() / 1000}.jpg"
-        )
-        Log.d(TAG, photoFile.absolutePath)
-        mClickedPhotoEditor.saveAsFile(photoFile.absolutePath, object : OnSaveListener {
-            override fun onSuccess(imagePath: String) {
-                mImageURI = Uri.fromFile(photoFile)
-                mClickedPhotoEditorView.source.setImageURI(mImageURI)
-                Toast.makeText(
-                    this@ViewStoryActivity,
-                    "Image Saved at ${photoFile.absolutePath}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            override fun onFailure(exception: Exception) {
-                Log.e("PhotoEditor", "Failed to save Image")
-            }
-        })
     }
 
-    fun uploadImage(mImageURI: Uri) {
-        val storage = Firebase.storage
-        var storageRef = storage.reference
-        var fileName = helper.getRandomString(15)
-        var imageRef =
-            storageRef.child("StoryImages/${fileName}_${System.currentTimeMillis() / 1000}.jpg")
+    fun uploadImage() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            allPermissionsGranted()
+        } else {
+            val fileName = helper.getRandomString(15)
+            // Create time-stamped output file to hold the image
+            val photoFile = File(
+                outputDirectory, "${fileName}_${System.currentTimeMillis() / 1000}.jpg"
+            )
+            Log.d(TAG, photoFile.absolutePath)
+            mClickedPhotoEditor.saveAsFile(photoFile.absolutePath, object : OnSaveListener {
+                override fun onSuccess(imagePath: String) {
+
+                    findViewById<LinearLayout>(R.id.story_ProgressLayout).visibility = View.VISIBLE
+                    findViewById<RelativeLayout>(R.id.viewImageControlLayout).visibility = View.GONE
+
+                    mImageURI = Uri.fromFile(photoFile)
+                    val storage = Firebase.storage
+                    var storageRef = storage.reference
+                    var fileName = helper.getRandomString(15)
+                    var imageRef =
+                        storageRef.child("StoryImages/${fileName}_${System.currentTimeMillis() / 1000}.jpg")
 
 
-        var uploadTask = imageRef.putFile(mImageURI)
-        uploadTask.addOnProgressListener {
-            findViewById<LinearLayout>(R.id.story_ProgressLayout).visibility = View.VISIBLE
-            findViewById<RelativeLayout>(R.id.viewImageControlLayout).visibility = View.GONE
-        }.addOnPausedListener {
-            Log.d(TAG, "Upload is paused")
-        }
-        uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    Log.d(TAG, it.toString())
+                    var uploadTask = imageRef.putFile(mImageURI)
+                    uploadTask.addOnProgressListener {
+                    }.addOnPausedListener {
+                        Log.d(TAG, "Upload is paused")
+                    }
+                    uploadTask.continueWithTask { task ->
+                        if (!task.isSuccessful) {
+                            task.exception?.let {
+                                Log.d(TAG, it.toString())
+                            }
+                        }
+                        imageRef.downloadUrl
+                    }.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val downloadUri = task.result
+                            uploadData("$downloadUri")
+                            Log.d(TAG, "Uploaded image")
+                        } else {
+                            Log.d(TAG, "mUploadImages error")
+                        }
+                    }
+                    Toast.makeText(
+                        this@ViewStoryActivity,
+                        "Image Saved at ${photoFile.absolutePath}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
-            }
-            imageRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                uploadData("$downloadUri")
-                Log.d(TAG, "Uploaded image")
-            } else {
-                Log.d(TAG, "mUploadImages error")
-            }
+
+                override fun onFailure(exception: Exception) {
+                    Toast.makeText(
+                        this@ViewStoryActivity,
+                        "Image Not Saved",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
         }
+
     }
 
     private fun uploadData(downloadUri: String) {

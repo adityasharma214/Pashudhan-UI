@@ -86,4 +86,5 @@ dependencies {
     implementation 'com.github.shts:StoriesProgressView:3.0.0'
     implementation 'com.burhanrashid52:photoeditor:1.5.1'
     implementation 'com.github.rtugeek:colorseekbar:1.7.7'
+    implementation 'com.giphy.sdk:ui:2.1.3'
 }

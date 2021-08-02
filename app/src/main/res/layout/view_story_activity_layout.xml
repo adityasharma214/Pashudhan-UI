@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout android:id="@+id/clickedImagesRootLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/clickedImagesRootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -52,9 +53,9 @@
         <!--            android:padding="0dp" />-->
 
         <ja.burhanrashid52.photoeditor.PhotoEditorView
+            android:id="@+id/photoEditorView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/photoEditorView"
             android:layout_margin="0dp"
             android:padding="0dp" />
 
@@ -156,7 +157,7 @@
             android:layout_height="300dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="20dp"
             android:visibility="gone"
             app:colorSeeds="@array/material_colors"
@@ -164,5 +165,5 @@
 
     </RelativeLayout>
 
-
 </RelativeLayout>
+

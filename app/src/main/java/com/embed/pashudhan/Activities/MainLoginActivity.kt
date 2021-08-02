@@ -24,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+
 class MainLoginActivity : AppCompatActivity() {
 
     // Constants
@@ -54,12 +55,11 @@ class MainLoginActivity : AppCompatActivity() {
     private var helper: Helper = Helper()
 
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Set Default Language as Hindi
         helper.changeAppLanguage(this, getString(R.string.MR_Locale))
-
         // Get Shared Preferences to check if user is already logged in.
         val checkLoginSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val mUserUUID = checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0")

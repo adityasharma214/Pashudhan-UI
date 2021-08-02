@@ -36,10 +36,6 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,11 +46,13 @@
             android:background="@drawable/pashubazaar_card_item_bg"
             android:elevation="5dp"
             android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
             android:weightSum="1">
 
             <TextView
                 android:id="@+id/phoneNumberLabel"
-                android:layout_width="320dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
@@ -65,8 +63,8 @@
 
             <EditText
                 android:id="@+id/phoneNumberEditText"
-                android:layout_width="320dp"
-                android:layout_height="51dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_weight="0.4"
@@ -74,7 +72,7 @@
                 android:hint="@string/mainLoginActivity_phoneNumberPlaceholder"
                 android:inputType="phone"
                 android:maxLength="13"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:textColor="@color/black">
 
                 <requestFocus />
@@ -98,7 +96,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="@string/mainLoginActivity_referralMessage"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/caption" />
 
                 <TextView
                     android:id="@+id/referralLink"
@@ -107,14 +105,12 @@
                     android:layout_gravity="center"
                     android:text="@string/mainLoginActivity_referralLink"
                     android:textColor="@color/primary"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/caption" />
             </LinearLayout>
 
 
         </LinearLayout>
 
-
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

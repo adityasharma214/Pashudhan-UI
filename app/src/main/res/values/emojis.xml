@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="emojis">
+        <item>0x1F600</item>
+        <!--        <item>U+1F603</item>-->
+        <!--        <item>U+1F604</item>-->
+        <!--        <item>U+1F601</item>-->
+        <!--        <item>U+1F606</item>-->
+        <!--        <item>U+1F605</item>-->
+    </string-array>
+</resources>
