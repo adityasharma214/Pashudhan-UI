@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.embed.pashudhan.Activities.PashuBazarCardItem
 import com.embed.pashudhan.Activities.PashuSalesActivity
 import com.embed.pashudhan.Adapters.BazaarAdapter
 import com.embed.pashudhan.Adapters.OnBazaarItemClickListner
@@ -83,7 +84,18 @@ class PashuBazaarFragment : Fragment(), OnBazaarItemClickListner {
     }
 
     override fun onItemclick(item: Pashubazaar, position: Int) {
-        Toast.makeText(this, item.animalBreed, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireActivity(), item.animalPrice, Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireActivity(), PashuBazarCardItem::class.java)
+        intent.putExtra("Breed", item.animalBreed)
+        intent.putExtra("Price", item.animalPrice)
+        intent.putExtra("MilkCapacity", item.animalMilkCapacity)
+        intent.putExtra("MilkQuantity", item.animalMilkQuantity)
+        intent.putExtra("Type", item.animalType)
+        intent.putExtra("Byaat", item.animalByaat)
+        intent.putExtra("Age", item.animalAge)
+        intent.putExtra("User", item.user_uuid)
+        startActivity(intent)
+
     }
 
 
