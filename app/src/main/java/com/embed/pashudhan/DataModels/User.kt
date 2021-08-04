@@ -1,3 +1,11 @@
 package com.embed.pashudhan.DataModels
 
-data class User(var firstName: String? = null)
+data class users(
+    var firstName: String? = null,
+    var lastName: String? = null,
+    var address: String? = null,
+    var district: String? = null,
+    var pinCode: String? = null,
+    var state: String? = null,
+    var village: String? = null
+)

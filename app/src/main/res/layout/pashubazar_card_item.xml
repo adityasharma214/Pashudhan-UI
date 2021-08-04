@@ -186,12 +186,12 @@
                 android:layout_marginHorizontal="20dp"
                 app:cardCornerRadius="5dp">
 
-                <ImageView
-                    android:id="@+id/pashuBazaar_cardImageView"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pashuBazaar_cardViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/download" />
+                    android:orientation="horizontal" />
+
             </androidx.cardview.widget.CardView>
 
 
@@ -205,6 +205,8 @@
                 android:background="@color/secondary"
                 android:backgroundTint="@color/secondary"
                 android:src="@drawable/ic_baseline_chevron_right_24"
+                android:id="@+id/pashubazaar_cardNextImageButton"
+                app:borderWidth="0dp"
                 app:fabSize="mini" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -217,6 +219,8 @@
                 android:background="@color/secondary"
                 android:backgroundTint="@color/secondary"
                 android:src="@drawable/ic_baseline_chevron_left_24"
+                android:id="@+id/pashubazaar_cardPrevImageButton"
+                app:borderWidth="0dp"
                 app:fabSize="mini" />
         </RelativeLayout>
 

@@ -1,15 +1,15 @@
 <resources>
     <!--  App Level Strings  -->
-    <string name="app_name">पशुधन</string>
+    <string name="app_name" translatable="false">पशुधन</string>
 
     <!--  SharedPreferences Variables  -->
-    <string name="sp_loginUserUUID">user_uuid</string>
-    <string name="sp_userInfo">userInfo</string>
+    <string name="sp_loginUserUUID" translatable="false">user_uuid</string>
+    <string name="sp_userInfo" translatable="false">userInfo</string>
 
     <!--  Settings Strings  -->
-    <string name="EN_Locale">en</string>
-    <string name="HI_Locale">hi</string>
-    <string name="MR_Locale">mr</string>
+    <string name="EN_Locale" translatable="false">en</string>
+    <string name="HI_Locale" translatable="false">hi</string>
+    <string name="MR_Locale" translatable="false">mr</string>
 
     <!-- Global Activity Level Strings  -->
     <!--  Common  -->
@@ -31,7 +31,7 @@
     <string name="mainLoginActivity_loginSuccessfulMessage">प्रवेश सफल</string>
     <string name="mainLoginActivity_wrongVerificationCodeMessage">कृप्या सही ओटीपी डाले</string>
     <string name="mainLoginActivity_incompleteVerificationCodeMessage">कृप्या पूरा ओटीपी भरे</string>
-    <string name="mainLoginActivity_noCountryCodeErrorMessage">कृप्या कंट्री कोड डालिये </string>
+    <string name="mainLoginActivity_noCountryCodeErrorMessage">कृप्या कंट्री कोड डालिये +91</string>
 
     <!--  OTPVerificationActivity  -->
     <string name="otpVerificationActivity_resendOTP"><b><u>ओटीपी दोबारा भेजें</u></b></string>
@@ -98,9 +98,16 @@
 
     <!--  PashuBazaarFragment  -->
     <string name="pashuBazaar_cardDummyTitle"><b>देसी गाय</b></string>
-    <string name="pashuBazaar_fragmentDummyText">PashuBazaar</string>
     <string name="pashuBazar_pashuSalesCTA">पशु बेचे</string>
     <string name="pashuBazar_filterCTA">फ़िल्टर</string>
 
+    <string name="pashuStory_shareBtnLabel">शेयर करे</string>
+    <string name="pashuBazaar_fragmentDummyText">पशु बाज़ार</string>
+    <string name="pashuStory_addTextPlaceholder">कुछ टाइप करे</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="pashuStory_addCommentPlaceholder">अपने विचार लिखिए</string>
+    <string name="pashuStory_addCommentCTA">कमेंट</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

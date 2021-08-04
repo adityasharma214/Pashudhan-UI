@@ -1,2 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <!-- Global Activity Level Strings  -->
+    <!--  Common  -->
+    <string name="tryAgainMessage">कृपया पुन्हा प्रयत्न करा</string>
+    <string name="nextActivityCTA">पुढे जा</string>
+    <string name="incompleteFormErrorMessage">कृपया संपूर्ण तपशील भरा</string>
+    <string name="progressDescription">कृपया थांबा</string>
+
+    <!--  MainLoginActivity  -->
+    <string name="mainLoginActivity_subHeading">शेतकऱ्यांचे खरे पैसे</string>
+    <string name="mainLoginActivity_phoneNumberLabel">फोन नंबर</string>
+    <string name="mainLoginActivity_phoneNumberPlaceholder">फोन नंबर प्रविष्ट करा</string>
+    <string name="mainLoginActivity_referralMessage">आपल्याकडे रेफरल कोड असल्यास</string>
+    <string name="mainLoginActivity_referralLink"><u><b>इथे क्लिक करा</b></u></string>
+    <string name="mainLoginActivity_noPhoneNumberErrorMessage">कृपया फोन नंबर प्रविष्ट करा</string>
+    <string name="mainLoginActivity_noPhoneNumberErrorAction">क्रमांक प्रविष्ट करा</string>
+    <string name="mainLoginActivity_smsQuotaExceededMessage">थोड्या वेळाने पुन्हा प्रयत्न करा</string>
+    <string name="mainLoginActivity_noPhoneNumberFoundedMessage">कोणताही फोन नंबर प्राप्त झाला नाही</string>
+    <string name="mainLoginActivity_loginSuccessfulMessage">लॉगिन यशस्वी</string>
+    <string name="mainLoginActivity_wrongVerificationCodeMessage">कृपया योग्य ओटीपी प्रविष्ट करा</string>
+    <string name="mainLoginActivity_incompleteVerificationCodeMessage">कृपया पूर्ण ओटीपी भरा</string>
+    <string name="mainLoginActivity_noCountryCodeErrorMessage">कृपया देश कोड +91 प्रविष्ट करा</string>
+
+    <!--  OTPVerificationActivity  -->
+    <string name="otpVerificationActivity_resendOTP"><b><u>ओटीपी पुन्हा पाठवा</u></b></string>
+    <string name="otpVerificationActivity_title">"ओटीपी "</string>
+    <string name="otpVerificationActivity_instruction">तुमच्या फोनवर पाठवलेला ओटीपी एंटर करा</string>
+
+    <!--  UserRegistrationActivity  -->
+    <string name="userRegistrationActivity_heading">माहिती</string>
+    <string name="userRegistrationActivity_nameLabel">नाव</string>
+    <string name="userRegistrationActivity_firstNamePlaceholder">नाव</string>
+    <string name="userRegistrationActivity_lastNamePlaceholder">आडनाव</string>
+    <string name="userRegistrationActivity_pinCodeLabel">पिन कोड</string>
+    <string name="userRegistrationActivity_pinCodePlaceholder">पिन कोड</string>
+    <string name="userRegistrationActivity_addressLabel">पत्ता</string>
+    <string name="userRegistrationActivity_addressPlaceholder">पत्ता</string>
+    <string name="userRegistrationActivity_villageLabel">गाव</string>
+    <string name="userRegistrationActivity_villagePlaceholder">गाव</string>
+    <string name="userRegistrationActivity_districtLabel">जिल्हा</string>
+    <string name="userRegistrationActivity_districtPlaceholder">जिल्हा</string>
+    <string name="userRegistrationActivity_stateLabel">राज्य</string>
+    <string name="userRegistrationActivity_statePlaceholder">राज्य</string>
+    <string name="userRegistrationActivity_registrationSuccessMessage">नोंदणी पूर्ण</string>
+    <string name="userRegistrationActivity_noLocationFoundMessage">तुमचा पत्ता मिळू शकला नाही. कृपया तुमचा पत्ता भरा.</string>
+
+
+    <!--  PashuSalesActivity  -->
+    <string name="pashuSalesActivity_heading">प्राणी विकणे</string>
+    <string name="pashuSalesActivity_animalTypeLabel">कोणता प्राणी</string>
+    <string name="pashuSalesActivity_animalBreedLabel">जाती</string>
+    <string name="pashuSalesActivity_animalAgeLabel">वय</string>
+    <string name="pashuSalesActivity_animalAgePlaceholder">वय प्रविष्ट करा</string>
+    <string name="pashuSalesActivity_animalByaatLabel">बात</string>
+    <string name="pashuSalesActivity_animalMilkQuantityLabel">वर्तमान दूध (दररोज)</string>
+    <string name="pashuSalesActivity_animalMilkQuantityPlaceholder">उदा: 10 लिटर</string>
+    <string name="pashuSalesActivity_animalMilkCapacityLabel">दूध क्षमता (दररोज)</string>
+    <string name="pashuSalesActivity_animalMilkCapacityPlaceholder">उदा: 10 लिटर</string>
+    <string name="pashuSalesActivity_animalPriceLabel">मूल्य</string>
+    <string name="pashuSalesActivity_animalPricePlaceholder">उदा: 30,000</string>
+    <string name="pashuSalesActivity_animalAddImageLabel">फोटो टाका</string>
+    <string name="pashuSalesActivity_animalAddImageDescription">चांगले चित्र अपलोड करणे महत्वाचे आहे</string>
+    <string name="pashuSalesActivity_animalSelectImageLabel">फोटो निवडा</string>
+    <string name="pashuSalesActivity_uploadCTA">अपलोड करा</string>
+    <string name="pashuSalesActivity_fileUploadError">फाइल अपलोड करता आली नाही</string>
+    <string name="pashuSalesActivity_addImageContentDescription">प्रतिमा जोडली</string>
+    <string name="pashuSalesActivity_dataUploadSuccess">तुमची प्राण्यांची माहिती नोंदवली गेली आहे</string>
+    <string name="pashuSalesActivity_defaultSpinnerOption">माहित नाही</string>
+    <string name="pashuSalesActivity_allImagesNotUploadedErrorMessage">कृपया चारही चित्रे अपलोड करा</string>
+
+    <string-array name="pashuSalesActivity_animalByaat">
+        <item>ब्यायी नहीं</item>
+        <item>पहला (1)</item>
+        <item>दूसरा (2)</item>
+        <item>तीसरा (3)</item>
+        <item>चौथा (4)</item>
+        <item>पांचवा (5)</item>
+        <item>छठा (6)</item>
+        <item>सातवाँ (7)</item>
+    </string-array>
+
+    <!--  BottomNavActivity  -->
+    <string name="fragment_pashuBazaar">पशु बाजार</string>
+    <string name="fragment_pashuKahani">प्राणी कथा</string>
+    <string name="fragment_pashuSamwardhan">पशुसंवर्धन</string>
+
+    <!--  PashuBazaarFragment  -->
+    <string name="pashuBazaar_cardDummyTitle"><b>देसी गाय</b></string>
+    <string name="pashuBazaar_fragmentDummyText">पशु बाजार</string>
+    <string name="pashuBazar_pashuSalesCTA">प्राणी विकणे</string>
+    <string name="pashuBazar_filterCTA">फिल्टर</string>
+
+    <string name="pashuStory_shareBtnLabel">शेअर करा</string>
+
+</resources>
