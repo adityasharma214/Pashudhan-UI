@@ -7,17 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.embed.pashudhan.Activities.PashuBazarCardItem
 import com.embed.pashudhan.Activities.PashuSalesActivity
 import com.embed.pashudhan.Adapters.BazaarAdapter
+import com.embed.pashudhan.Adapters.OnBazaarItemClickListner
 import com.embed.pashudhan.DataModels.Pashubazaar
 import com.embed.pashudhan.R
 import com.google.firebase.firestore.*
 
-class PashuBazaarFragment : Fragment() {
+class PashuBazaarFragment : Fragment(), OnBazaarItemClickListner {
+
     private lateinit var mPashuSalesCTA: Button
     private lateinit var mBazaarRecyclerView: RecyclerView
     private lateinit var mBazaarAdapter: BazaarAdapter
@@ -45,7 +49,7 @@ class PashuBazaarFragment : Fragment() {
         mAnimalList = arrayListOf()
 
 
-        mBazaarAdapter = BazaarAdapter(mAnimalList, requireContext())
+        mBazaarAdapter = BazaarAdapter(mAnimalList, this, this)
         mBazaarRecyclerView.adapter = mBazaarAdapter
 
         mPashuSalesCTA = view.findViewById(R.id.pashuSalesCTA)
@@ -77,6 +81,21 @@ class PashuBazaarFragment : Fragment() {
                     mBazaarAdapter.notifyDataSetChanged()
                 }
             })
+
+    }
+
+    override fun onItemclick(item: Pashubazaar, position: Int) {
+//        Toast.makeText(requireActivity(), item.animalPrice, Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireActivity(), PashuBazarCardItem::class.java)
+        intent.putExtra("Breed", item.animalBreed)
+        intent.putExtra("Price", item.animalPrice)
+        intent.putExtra("MilkCapacity", item.animalMilkCapacity)
+        intent.putExtra("MilkQuantity", item.animalMilkQuantity)
+        intent.putExtra("Type", item.animalType)
+        intent.putExtra("Byaat", item.animalByaat)
+        intent.putExtra("Age", item.animalAge)
+        intent.putExtra("User", item.user_uuid)
+        startActivity(intent)
 
     }
 

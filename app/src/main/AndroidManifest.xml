@@ -22,6 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PashuDhan">
+
+        <activity android:name=".Activities.PashuBazarCardItem"></activity>
+        <activity android:name=".Activities.PashuStoryActivity"></activity>
         <activity android:name=".Activities.Notifications"></activity>
         <activity android:name=".Activities.Profile" />
 
@@ -34,7 +37,6 @@
         <activity android:name=".Activities.AddStoryActivity" />
         <activity android:name=".Activities.PashuStoryActivity" />
         <activity android:name=".Activities.BottomNavigationActivity" />
-        <activity android:name=".Activities.Pashubazar" />
         <activity android:name=".Activities.PashuSalesActivity" />
         <activity android:name=".Activities.MainLoginActivity">
             <intent-filter>
