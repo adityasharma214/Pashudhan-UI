@@ -4,7 +4,16 @@
 
     <!--  SharedPreferences Variables  -->
     <string name="sp_loginUserUUID" translatable="false">user_uuid</string>
-    <string name="sp_userInfo" translatable="false">userInfo</string>
+    <string name="sp_userFirstName" translatable="false">userFirstName</string>
+    <string name="sp_userLastName" translatable="false">userLastName</string>
+    <string name="sp_userAddress" translatable="false">userAddress</string>
+    <string name="sp_userPinCode" translatable="false">userPinCode</string>
+    <string name="sp_userVillage" translatable="false">userVillage</string>
+    <string name="sp_userDistrict" translatable="false">userDistrict</string>
+    <string name="sp_userState" translatable="false">userState</string>
+    <string name="sp_profileImage" translatable="false">userProfileImage</string>
+    <string name="sp_userLatitude" translatable="false">userLatitude</string>
+    <string name="sp_userLongitude" translatable="false">userLongitude</string>
 
     <!--  Settings Strings  -->
     <string name="EN_Locale" translatable="false">en</string>

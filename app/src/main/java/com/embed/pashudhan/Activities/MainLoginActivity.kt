@@ -401,7 +401,6 @@ class MainLoginActivity : AppCompatActivity() {
                         PreferenceManager.getDefaultSharedPreferences(this@MainLoginActivity)
                     with(setLoginSharedPref.edit()) {
                         putString(getString(R.string.sp_loginUserUUID), mPhoneNumberVal)
-                        putString(getString(R.string.sp_userInfo), user.toString())
                         apply()
                     }
 

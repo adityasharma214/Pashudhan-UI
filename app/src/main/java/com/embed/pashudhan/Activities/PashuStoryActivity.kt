@@ -8,10 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.embed.pashudhan.Adapters.*
-import com.embed.pashudhan.DataModels.StoryData
-import com.embed.pashudhan.DataModels.StoryItem
-import com.embed.pashudhan.DataModels.StoryUserDataModel
-import com.embed.pashudhan.DataModels.users
+import com.embed.pashudhan.DataModels.*
 import com.embed.pashudhan.R
 import com.google.firebase.firestore.*
 
@@ -38,7 +35,7 @@ class PashuStoryActivity : AppCompatActivity() {
         mUserUUID =
             checkLoginSharedPref.getString(getString(R.string.sp_loginUserUUID), "0").toString()
         mStoryPageView = findViewById(R.id.storiesHolderViewPager)
-//        mStoriesList = arrayListOf()
+        mStoriesList = arrayListOf()
         mStoriesUsersList = arrayListOf()
         mStoryPageAdater =
             StoryPagerAdapter(
@@ -83,53 +80,31 @@ class PashuStoryActivity : AppCompatActivity() {
                         Log.e("Firestore error", error.message.toString())
                         return
                     }
-                    if (value?.documentChanges?.isNotEmpty()!!) {
-                        for (dc: DocumentChange in value.documentChanges) {
-                            if (dc.type == DocumentChange.Type.ADDED) {
-                                var docId = dc.document.id
-                                Log.d(TAG, docId)
-                                var storyDocument = dc.document.toObject(StoryData::class.java)
-                                val docRef = PashudhanDB.collection("users").document(docId)
-                                docRef.get()
-                                    .addOnSuccessListener { userDocument ->
-                                        if (storyDocument != null) {
 
-                                            var storyList = storyDocument.storiesList!!
-                                            var newList = arrayListOf<StoryItem>()
-                                            storyList.forEach {
-                                                var storyTimestamp = it.timestamp?.toLong()
-                                                var currentTimestamp =
-                                                    System.currentTimeMillis() / 1000
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            var newDocument = StoryUserDataModel()
+                            newDocument.id = dc.document.id
+                            var storyDocument = dc.document.toObject(StoryData::class.java)
+                            var storyList = storyDocument.storiesList!!
+                            var newList = arrayListOf<StoryItem>()
+                            storyList.forEach {
+                                var storyTimestamp = it.timestamp?.toLong()
+                                var currentTimestamp =
+                                    System.currentTimeMillis() / 1000
 
-                                                var durationInHours =
-                                                    (currentTimestamp.minus(storyTimestamp!!)) / 3600
+                                var durationInHours =
+                                    (currentTimestamp.minus(storyTimestamp!!)) / 3600
 
-                                                if (durationInHours < 24) {
-                                                    newList.add(it)
-                                                }
-                                            }
-                                            if (newList.size > 0) {
-                                                var newDoc = StoryUserDataModel()
-                                                newDoc.storiesList = newList
-                                                newDoc.userInfo =
-                                                    userDocument.toObject(users::class.java)
-                                                Log.d(TAG, "$newDoc")
-                                                mStoriesUsersList.add(newDoc)
-//                                                storyDocument.storiesList = newList
-//                                                mStoriesList.add(storyDocument)
+                                if (durationInHours < 24) {
+                                    newList.add(it)
+                                }
+                            }
+                            if (newList.size > 0) {
+                                newDocument.storiesList = newList
+                                mStoriesUsersList.add(newDocument)
 
-                                                mStoryPageAdater.notifyDataSetChanged()
-                                            }
-                                        } else {
-                                            Log.d(TAG, "No such document")
-                                        }
-                                    }
-                                    .addOnFailureListener { exception ->
-
-                                    }
-
-
-//                            mStoriesList.add(document)
+                                mStoryPageAdater.notifyDataSetChanged()
                             }
                         }
                     }
@@ -137,6 +112,74 @@ class PashuStoryActivity : AppCompatActivity() {
             })
 
     }
+
+//    private fun EventChangeListener() {
+//        PashudhanDB = FirebaseFirestore.getInstance()
+//        PashudhanDB.collection("Stories")
+//            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+//                override fun onEvent(
+//                    value: QuerySnapshot?,
+//                    error: FirebaseFirestoreException?
+//                ) {
+//                    if (error != null) {
+//                        Log.e("Firestore error", error.message.toString())
+//                        return
+//                    }
+//                    if (value?.documentChanges?.isNotEmpty()!!) {
+//                        for (dc: DocumentChange in value.documentChanges) {
+//                            if (dc.type == DocumentChange.Type.ADDED) {
+//                                var docId = dc.document.id
+//                                Log.d(TAG, docId)
+//                                var storyDocument = dc.document.toObject(StoryData::class.java)
+//                                val docRef = PashudhanDB.collection("users").document(docId)
+//                                docRef.get()
+//                                    .addOnSuccessListener { userDocument ->
+//                                        if (storyDocument != null) {
+//
+//                                            var storyList = storyDocument.storiesList!!
+//                                            var newList = arrayListOf<StoryItem>()
+//                                            storyList.forEach {
+//                                                var storyTimestamp = it.timestamp?.toLong()
+//                                                var currentTimestamp =
+//                                                    System.currentTimeMillis() / 1000
+//
+//                                                var durationInHours =
+//                                                    (currentTimestamp.minus(storyTimestamp!!)) / 3600
+//
+//                                                if (durationInHours < 24) {
+//                                                    newList.add(it)
+//                                                }
+//                                            }
+//                                            if (newList.size > 0) {
+//                                                var newDoc = StoryUserDataModel()
+//                                                newDoc.id = docId
+//                                                newDoc.storiesList = newList
+//                                                newDoc.userInfo =
+//                                                    userDocument.toObject(users::class.java)
+//                                                Log.d(TAG, "$newDoc")
+//                                                mStoriesUsersList.add(newDoc)
+////                                                storyDocument.storiesList = newList
+////                                                mStoriesList.add(storyDocument)
+//
+//                                                mStoryPageAdater.notifyDataSetChanged()
+//                                            }
+//                                        } else {
+//                                            Log.d(TAG, "No such document")
+//                                        }
+//                                    }
+//                                    .addOnFailureListener { exception ->
+//
+//                                    }
+//
+//
+////                            mStoriesList.add(document)
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//
+//    }
 }
 
 

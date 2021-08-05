@@ -8,6 +8,7 @@
     <dimen name="body2">24sp</dimen>
     <dimen name="body">20sp</dimen>
     <dimen name="caption">14sp</dimen>
+    <dimen name="footnote">10sp</dimen>
     <dimen name="button">25sp</dimen>
     <dimen name="margin_unit">10dp</dimen>
 </resources>

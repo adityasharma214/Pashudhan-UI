@@ -7,5 +7,6 @@ data class users(
     var district: String? = null,
     var pinCode: String? = null,
     var state: String? = null,
-    var village: String? = null
+    var village: String? = null,
+    var profileThumbnail: String? = null,
 )

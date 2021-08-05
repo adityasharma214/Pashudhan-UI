@@ -1,6 +1,6 @@
 package com.embed.pashudhan.DataModels
 
 data class StoryUserDataModel(
-    var storiesList: ArrayList<StoryItem>? = null,
-    var userInfo: users? = null
+    var id: String? = null,
+    var storiesList: ArrayList<StoryItem>? = null
 )

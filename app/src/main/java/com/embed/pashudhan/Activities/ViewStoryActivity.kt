@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.embed.pashudhan.BitmapUtils
+import com.embed.pashudhan.DataModels.CommentsData
 import com.embed.pashudhan.Helper
 import com.embed.pashudhan.R
 import com.giphy.sdk.core.models.Image
@@ -53,6 +54,7 @@ class ViewStoryActivity : AppCompatActivity() {
     companion object {
         private val TAG = "ViewStory==>"
         private const val REQUEST_CODE_PERMISSIONS = 10
+        private const val REQUEST_CODE_PERMISSIONS_FOR_SHARE = 11
         private val REQUIRED_PERMISSIONS = arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -65,6 +67,9 @@ class ViewStoryActivity : AppCompatActivity() {
     private lateinit var mClickedPhotoEditor: PhotoEditor
     private val PashudhanDB = Firebase.firestore
     private lateinit var mUserUUID: String
+    private lateinit var mUserFullName: String
+    private lateinit var mUserLatitude: String
+    private lateinit var mUserLongitude: String
     private lateinit var mShareButton: Button
     private lateinit var mCloseButton: ImageButton
     private lateinit var mSaveSettingButton: ImageButton
@@ -78,6 +83,7 @@ class ViewStoryActivity : AppCompatActivity() {
     private lateinit var outputDirectory: File
     private lateinit var dialog: GiphyDialogFragment
 
+
     private var helper = Helper()
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -89,13 +95,24 @@ class ViewStoryActivity : AppCompatActivity() {
         mImageURI = Uri.parse(intent.getStringExtra("imageUri").toString())
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         mUserUUID = sharedPref.getString(getString(R.string.sp_loginUserUUID), "0").toString()
+        var firstName = sharedPref.getString(getString(R.string.sp_userFirstName), "0").toString()
+        var lastName = sharedPref.getString(getString(R.string.sp_userLastName), "0").toString()
+        mUserFullName = "$firstName $lastName"
+        mUserLatitude = sharedPref.getString(getString(R.string.sp_userLatitude), "0").toString()
+        mUserLongitude = sharedPref.getString(getString(R.string.sp_userLongitude), "0").toString()
         mClickedPhotoEditorView = findViewById(R.id.photoEditorView)
         mClickedPhotoEditorView.source.setImageURI(mImageURI)
 
         rootLayout = findViewById(R.id.viewImageControlLayout)
         mShareButton = findViewById(R.id.shareStoryBtn)
         mShareButton.setOnClickListener {
-            uploadImage()
+            if (allPermissionsGranted()) {
+                uploadImage()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS_FOR_SHARE
+                )
+            }
         }
         outputDirectory = getOutputDirectory()
         mCloseButton = findViewById(R.id.closeViewImageBtn)
@@ -246,6 +263,17 @@ class ViewStoryActivity : AppCompatActivity() {
                 ).show()
                 finish()
             }
+        } else if (requestCode == REQUEST_CODE_PERMISSIONS_FOR_SHARE) {
+            if (allPermissionsGranted()) {
+                uploadImage()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
         }
     }
 
@@ -356,8 +384,10 @@ class ViewStoryActivity : AppCompatActivity() {
         val storyItem = hashMapOf(
             "imageUri" to downloadUri,
             "timestamp" to "${System.currentTimeMillis() / 1000}",
-            "storyComments" to arrayListOf<String>(),
+            "comments" to arrayListOf<CommentsData>(),
             "likes" to arrayListOf<String>(),
+            "name" to mUserFullName,
+            "location" to arrayListOf<String>(mUserLatitude, mUserLongitude)
         )
 
         var storyItemToArray = ArrayList<HashMap<String, Serializable>>()

@@ -19,9 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
+        android:layout_above="@id/emptyView"
+        android:layout_alignParentEnd="true"
         android:gravity="center"
         android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
         android:weightSum="2">
 
         <EditText
@@ -48,5 +51,11 @@
 
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

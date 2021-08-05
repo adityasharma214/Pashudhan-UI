@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stories_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/stories_root_layout"
     tools:context=".Activities.PashuStoryActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -92,3 +92,5 @@
         android:orientation="vertical" />
 
 </RelativeLayout>
+
+

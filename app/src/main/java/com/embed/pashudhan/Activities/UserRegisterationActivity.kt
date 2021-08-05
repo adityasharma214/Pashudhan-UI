@@ -3,6 +3,7 @@ package com.embed.pashudhan.Activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -11,6 +12,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.preference.PreferenceManager
 import android.provider.Settings
 import android.view.View
 import android.widget.*
@@ -46,6 +48,7 @@ class UserRegisterationActivity : AppCompatActivity() {
     private lateinit var userRegistrationRootLayout: LinearLayout
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mAddressProgressBar: ProgressBar
+    private lateinit var mSharedPref: SharedPreferences
     var currentLocation: LatLng = LatLng(20.5, 78.9)
 
     // Get Access to Helper Functions
@@ -54,7 +57,7 @@ class UserRegisterationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_registeration_activity_layout)
-
+        mSharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         userRegistrationRootLayout = findViewById(R.id.user_registration_root_layout)
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -106,7 +109,8 @@ class UserRegisterationActivity : AppCompatActivity() {
                 "pinCode" to pinCodeVal,
                 "village" to villageVal,
                 "district" to districtVal,
-                "state" to stateVal
+                "state" to stateVal,
+                "profileThumbnail" to ""
             )
 
             PashudhanDB.addDocument(mUserUUID, "users", userRegistrationData)
@@ -117,6 +121,36 @@ class UserRegisterationActivity : AppCompatActivity() {
                         getString(R.string.userRegistrationActivity_registrationSuccessMessage),
                         helper.SUCCESS_STATE
                     )
+
+
+                    with(mSharedPref.edit()) {
+                        putString(
+                            getString(com.embed.pashudhan.R.string.sp_userFirstName),
+                            firstNameVal
+                        )
+                        putString(
+                            getString(com.embed.pashudhan.R.string.sp_userLastName),
+                            lastNameVal
+                        )
+                        putString(
+                            getString(com.embed.pashudhan.R.string.sp_userAddress),
+                            addressVal
+                        )
+                        putString(
+                            getString(com.embed.pashudhan.R.string.sp_userPinCode),
+                            pinCodeVal
+                        )
+                        putString(
+                            getString(com.embed.pashudhan.R.string.sp_userVillage),
+                            villageVal
+                        )
+                        putString(
+                            getString(com.embed.pashudhan.R.string.sp_userDistrict),
+                            districtVal
+                        )
+                        putString(getString(com.embed.pashudhan.R.string.sp_userState), stateVal)
+                        apply()
+                    }
 
                     var handler = Handler()
 
@@ -159,6 +193,17 @@ class UserRegisterationActivity : AppCompatActivity() {
                         requestNewLocationData()
                     } else {
                         currentLocation = LatLng(location.latitude, location.longitude)
+                        with(mSharedPref.edit()) {
+                            putString(
+                                getString(com.embed.pashudhan.R.string.sp_userLatitude),
+                                "${location.latitude}"
+                            )
+                            putString(
+                                getString(com.embed.pashudhan.R.string.sp_userLongitude),
+                                "${location.longitude}"
+                            )
+                            apply()
+                        }
                         getLocationData(location)
                     }
                 }
@@ -227,7 +272,7 @@ class UserRegisterationActivity : AppCompatActivity() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         mFusedLocationClient.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
-            Looper.myLooper()
+            Looper.myLooper()!!
         )
     }
 
