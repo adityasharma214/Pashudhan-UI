@@ -109,6 +109,68 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/caption" />
 
+                <TextView
+                    android:id="@+id/pashuBazaar_animalMilkCapacity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/caption"
+                    android:visibility="invisible"/>
+                <TextView
+                    android:id="@+id/pashuBazaar_animalMilkQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/caption"
+                    android:visibility="invisible"/>
+                <TextView
+                    android:id="@+id/pashuBazaar_animalType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/caption"
+                    android:visibility="invisible"/>
+                <TextView
+                    android:id="@+id/pashuBazaar_user_uuid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/caption"
+                    android:visibility="invisible"/>
+                <TextView
+                    android:id="@+id/pashuBazaar_animalAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/caption"
+                    android:visibility="invisible"/>
+                <TextView
+                    android:id="@+id/pashuBazaar_animalByaat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/caption"
+                    android:visibility="invisible"/>
+
+
             </LinearLayout>
 
         </LinearLayout>
